@@ -10,6 +10,6 @@ package depaul.edu.robotic.vacuum;
  */
 public class RoboticVacuumMain {
 	public static void main(String[] args) {
-		
+		//Not implemented
 	}
 }
