@@ -1,5 +1,8 @@
 package depaul.edu.robotic.vacuum;
 
+import javax.swing.SwingUtilities;
+import depaul.edu.robotic.vacuum.display.ApplicationDisplayFrame;
+
 /**
  * 
  * @author Deonte Johnson
@@ -9,7 +12,16 @@ package depaul.edu.robotic.vacuum;
  *
  */
 public class RoboticVacuumMain {
+	
 	public static void main(String[] args) {
-		//Not implemented
-	}
+		//Queue the event
+		SwingUtilities.invokeLater(new Runnable( ) {
+							
+			@Override
+			public void run() {		
+				//instantiate & run a robotic vacuum application Thread
+				new ApplicationDisplayFrame().runRoboticVacuumApp();
+			}
+		});	
+	}	
 }
