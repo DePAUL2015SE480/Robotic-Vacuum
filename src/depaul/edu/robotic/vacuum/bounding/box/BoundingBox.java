@@ -22,50 +22,55 @@ public final class BoundingBox implements Box, Draw {
     private Rectangle rectangleObjectUsedToDrawBoundingBox;
     private Color color;
    
-    private void buildBoxStructure(Graphics2D graphicsTool, Rectangle _rec, int thickness, Color _color) {
+    private void buildBoxStructure(Graphics2D graphicsTool, Rectangle rectangleToCreateBox,
+    		int thickness, Color rectangleColor) {
+    	
         // Draw top line
-    	graphicsTool.setColor(_color);
-        graphicsTool.drawRect((int)_rec.getX(), (int)_rec.getY(), (int)_rec.getWidth(), thickness);
+    	graphicsTool.setColor(rectangleColor);
+        graphicsTool.drawRect((int)rectangleToCreateBox.getX(), 
+        		(int)rectangleToCreateBox.getY(), (int)rectangleToCreateBox.getWidth(), thickness);
 
         // Draw left line
-        graphicsTool.setColor(_color);
-        graphicsTool.drawRect((int)_rec.getX(), (int)_rec.getY(), thickness, (int)_rec.getHeight());
+        graphicsTool.setColor(rectangleColor);
+        graphicsTool.drawRect((int)rectangleToCreateBox.getX(), 
+        		(int)rectangleToCreateBox.getY(), thickness, (int)rectangleToCreateBox.getHeight());
 
         // Draw right line
-        graphicsTool.setColor(_color);
-        graphicsTool.drawRect((int)_rec.getX() + ((int)_rec.getWidth() - thickness), 
-        		(int)_rec.getY(), thickness, (int)_rec.getHeight());
+        graphicsTool.setColor(rectangleColor);
+        graphicsTool.drawRect((int)rectangleToCreateBox.getX() + ((int)rectangleToCreateBox.getWidth() - thickness), 
+        		(int)rectangleToCreateBox.getY(), thickness, (int)rectangleToCreateBox.getHeight());
         
         // Draw bottom line
-        graphicsTool.setColor(_color);
-        graphicsTool.drawRect((int)_rec.getX(), (int)_rec.getY() + (int)_rec.getHeight() - thickness, 
-        		(int)_rec.getWidth(), thickness); 
+        graphicsTool.setColor(rectangleColor);
+        graphicsTool.drawRect((int)rectangleToCreateBox.getX(), 
+        		(int)rectangleToCreateBox.getY() + (int)rectangleToCreateBox.getHeight() - thickness, 
+        		(int)rectangleToCreateBox.getWidth(), thickness); 
     } 
     
     /**
      * 
-     * @param _name used to identify object on screen
-     * @param _rect used to create bounding box
-     * @param _color is option, if color scheme is needed
+     * @param nameOfBoundingBox used to identify object on screen
+     * @param rectangleToCreateBoxt used to create bounding box
+     * @param rectangleColor is option, if color scheme is needed
      */
-    BoundingBox(BoundingBoxName _name, Rectangle _rect, Color _color) {
-    	this.nameGivenToBoundingBox = _name;
-        this.rectangleObjectUsedToDrawBoundingBox = _rect;
-        this.color = _color;
+    BoundingBox(BoundingBoxName nameOfBoundingBox, Rectangle rectangleToCreateBoxt, Color rectangleColor) {
+    	this.nameGivenToBoundingBox = nameOfBoundingBox;
+        this.rectangleObjectUsedToDrawBoundingBox = rectangleToCreateBoxt;
+        this.color = rectangleColor;
     }
     
     @Override
-	public void drawContent(Graphics2D g2d, ImageObserver _observer) {
+	public void drawContent(Graphics2D g2d, ImageObserver observer) {
     	this.buildBoxStructure(g2d, this.rectangleObjectUsedToDrawBoundingBox, 0, this.color);
 	}
     
     /**
      * 
-     * @param _color is set to color value given
+     * @param rectangleColor is set to color value given
      */
     @Override
-    public void setColor(Color _color) { 
-    	color = _color;
+    public void setColor(Color rectangleColor) { 
+    	color = rectangleColor;
     }
     
     /**

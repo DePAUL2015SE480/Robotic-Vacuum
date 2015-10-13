@@ -35,15 +35,15 @@ public final class DrawManager {
 			
 	}
 
-	public void addDrawComponent(Draw _drawComponent) {
-		collectionOfDrawCompnents.add(_drawComponent);
+	public void addDrawComponent(Draw drawComponent) {
+		collectionOfDrawCompnents.add(drawComponent);
 	}
 		
-	public void remove(Draw _drawComponent) {
-		collectionOfDrawCompnents.remove(_drawComponent);
+	public void remove(Draw drawComponent) {
+		collectionOfDrawCompnents.remove(drawComponent);
 	}
 		
-	public void drawAllComponents(Graphics2D g2d, ImageObserver _observer) {
+	public void drawAllComponents(Graphics2D g2d, ImageObserver observer) {
 			
 		//give each component a broader stroke
 		g2d.setStroke(new BasicStroke(1.5f));
@@ -65,7 +65,7 @@ public final class DrawManager {
 		
 		//draw all components inheriting drawContent
 		for(Draw drawComponent : collectionOfDrawCompnentsOfDrawComponent)
-			drawComponent.drawContent(g2d, _observer); 
+			drawComponent.drawContent(g2d, observer); 
 	}
 		
 	/**

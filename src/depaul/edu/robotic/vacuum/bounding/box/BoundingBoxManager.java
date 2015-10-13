@@ -36,12 +36,13 @@ public class BoundingBoxManager {
     
     /**
      * 
-     * @param _name of the bounding box being created
+     * @param nameOfBoundingBox of the bounding box being created
      * @param rectangle being used to create the box 
      * @param _color of bounding box
      */
-    public void createAndAddBoundingBoxToCollection(BoundingBoxName _name, Rectangle rectangle, Color _color) {
-    	BoundingBox boundingBox = new BoundingBox(_name, rectangle, _color);
+    public void createAndAddBoundingBoxToCollection(BoundingBoxName nameOfBoundingBox, 
+    		Rectangle rectangle, Color rectangleColor) {
+    	BoundingBox boundingBox = new BoundingBox(nameOfBoundingBox, rectangle, rectangleColor);
         this.collectionOfBoundingBoxes.add(boundingBox);
     }
 

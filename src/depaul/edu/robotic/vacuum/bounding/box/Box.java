@@ -9,7 +9,7 @@ import java.awt.Rectangle;
  *
  */
 public interface Box {
-	public void setColor(Color _color);
+	public void setColor(Color rectangleColor);
 	public BoundingBoxName getNameGivenToBoundingBox();
 	public Rectangle getRectangleObjectUsedToDrawBoundingBox();
 }
