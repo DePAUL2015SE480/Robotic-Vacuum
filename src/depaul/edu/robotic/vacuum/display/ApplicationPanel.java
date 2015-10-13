@@ -13,6 +13,7 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBox;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
 import depaul.edu.robotic.vacuum.draw.content.DrawManager;
+import depaul.edu.robotic.vacuum.navigation.BotMovement;
 
 /**
  * 
@@ -112,16 +113,18 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		g2d.dispose();	
 	}
 	
+	int limit = 0; // will remove
+	Boolean move = true; //will remove
 	private void update() {
-		
-		//this method is reserved for the navigation object, so that
-		//robot can navigate across locations. all robot active will be
-		//done in the navigation package and the navigation object will
-		//be used here. Content below is just 
-		//for show and will be deleted.
-		BoundingBoxManager.getInstance()
-		.getBoundingBox(BoundingBoxName.CLEANING_BOT)
-		.getRectangleObjectUsedToDrawBoundingBox().x++;
+		//this is only test data
+		if(move) 
+			limit = BotMovement.moveRight(move);
+			
+		if(limit == 400) {
+			move = false;
+			BotMovement.moveRight(move);
+			BotMovement.moveUp(true);
+		}
 	}
 
 	/**
