@@ -1,4 +1,4 @@
-package depaul.edu.robotic.vacuum;
+package depaul.edu.robotic.vacuum.power.management;
 
 /**
  * Throws exceptions for various Battery methods 

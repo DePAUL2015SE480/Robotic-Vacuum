@@ -1,4 +1,4 @@
-package depaul.edu.robotic.vacuum;
+package depaul.edu.robotic.vacuum.power.management;
 
 /**
  * Singleton class that provides API for CleanSweep battery operations and private Battery class
