@@ -16,78 +16,94 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
  * used for navigation along the x/y-axis one unit
  * according to requirements
  * 
- * this class is not complete
+ * class is almost complete, but still needs to be 
+ * modified.
  *
  */
 public class BotMovement {
+	private static BotMovement instance;
+	private final int VELOCITY_UNITS = 10; //change to one for 1 unit
+	private final int SLEEP_TIME_IN_SECONDS = 2;
 	
-	public static Boolean move = true;
+	private void sleep(int sleepTimeInSeconds) {
+		try {
+			Thread.sleep(sleepTimeInSeconds*100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 * @return instance of this class
+	 */
+	public static BotMovement getInstance() {
+		if(instance == null)
+			instance = new BotMovement();
+		return instance;
+	}
 	
 	/*
 	 * This method will move the robot one unit
 	 * to the left. (x - 1, y)
-	 * @param canMove allows bot to move in this 
-	 * direction if true
-	 * @return x-axis locations
 	 */
-	public static int moveLeft() {
-		if(move) {
-			return BoundingBoxManager.getInstance()
-				.getBoundingBox(BoundingBoxName.CLEANING_BOT)
-				.getRectangleObjectUsedToDrawBoundingBox().x--;
-		}
-		else
-			return 0;
+	public void moveLeft() {
+		BoundingBoxManager.getInstance()
+			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+			.getRectangleObjectUsedToDrawBoundingBox().x-=VELOCITY_UNITS;
+		sleep(SLEEP_TIME_IN_SECONDS);
 	}
 	
 	/**
 	 *  This method will move the robot one unit
 	 * to the right. (x + 1, y)
-	 * @param canMove allows bot to move in this 
-	 * direction if true
-	 * @return x-axis location
 	 */
-	public static int moveRight() {
-		if(move) {
-			return BoundingBoxManager.getInstance()
-					.getBoundingBox(BoundingBoxName.CLEANING_BOT)
-					.getRectangleObjectUsedToDrawBoundingBox().x++;
-		}
-		else 
-			return 0;
+	public void moveRight() {
+		BoundingBoxManager.getInstance()
+			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+			.getRectangleObjectUsedToDrawBoundingBox().x+=VELOCITY_UNITS;
+		sleep(SLEEP_TIME_IN_SECONDS);
 	}
 	
 	/**
 	 * * This method will move the robot one unit
 	 * to the right. (x, y - 1)
-	 * @param canMove allows bot to move in this 
-	 * direction if true
-	 * @return y-axis
 	 */
-	public static int moveUp() {
-		if(move) {
-			return BoundingBoxManager.getInstance()
-					.getBoundingBox(BoundingBoxName.CLEANING_BOT)
-					.getRectangleObjectUsedToDrawBoundingBox().y--;
-		}
-		else 
-			return 0;
+	public void moveUp() {
+		BoundingBoxManager.getInstance()
+			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+			.getRectangleObjectUsedToDrawBoundingBox().y-=VELOCITY_UNITS;
+		sleep(SLEEP_TIME_IN_SECONDS);
 	}
 	
 	/**
 	 * * This method will move the robot one unit
 	 * to the right. (x, y + 1)
-	 * @param canMove allows bot to move in this 
-	 * direction if true
-	 * @return y-axis
 	 */
-	public static int moveDown() {
-		if(move) {
-			return BoundingBoxManager.getInstance()
-					.getBoundingBox(BoundingBoxName.CLEANING_BOT)
-					.getRectangleObjectUsedToDrawBoundingBox().y++;
-		}
-		else 
-			return 0;
+	public void moveDown() {
+		BoundingBoxManager.getInstance()
+			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+			.getRectangleObjectUsedToDrawBoundingBox().y+=VELOCITY_UNITS;
+		sleep(SLEEP_TIME_IN_SECONDS);
+	}
+	
+	/**
+	 * 
+	 * @return current x-axis location
+	 */
+	public int getCurrentXLocation() {
+		return BoundingBoxManager.getInstance()
+				.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+				.getRectangleObjectUsedToDrawBoundingBox().x;
+	}
+	
+	/**
+	 * 
+	 * @return current y-axis location
+	 */
+	public int getCurrentYLocation() {
+		return BoundingBoxManager.getInstance()
+				.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+				.getRectangleObjectUsedToDrawBoundingBox().y;
 	}
 }

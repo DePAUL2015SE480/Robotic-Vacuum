@@ -116,23 +116,32 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		g2d.dispose();
 	}
 
-	int limit = 0; // will remove
-	Boolean move = true; // will remove
-
+	Boolean moveR = true; // will remove
+	
 	private void update() {
-		//create a moveL, moveR, etc and move in all directions
-		// this is only test data
-		if (move)
-			limit = BotMovement.moveRight();
-
-		if (limit == (this.SCREEN_SIZE_X - BoundingBoxManager
-				.getInstance().getBoundingBox(BoundingBoxName.CLEANING_BOT)
-				.getRectangleObjectUsedToDrawBoundingBox().getWidth())) {
-			move = false;
-			
-			BotMovement.moveUp();
-			BotMovement.move = false;
+		// this is only test data	
+		if (moveR) {
+			BotMovement.getInstance().moveRight();
 		}
+		
+		if (BotMovement.getInstance().getCurrentXLocation() >= (this.SCREEN_SIZE_X - BoundingBoxManager
+				.getInstance().getBoundingBox(BoundingBoxName.CLEANING_BOT)
+				.getRectangleObjectUsedToDrawBoundingBox().getWidth()-10)) {
+			moveR = false;
+			BotMovement.getInstance().moveDown();
+		}
+		
+		if (BotMovement.getInstance().getCurrentYLocation() >= (this.SCREEN_SIZE_Y-124)) {
+			BotMovement.getInstance().moveLeft();
+		}		
+		
+		if (BotMovement.getInstance().getCurrentXLocation() <= 10) {
+			BotMovement.getInstance().moveUp();
+		}
+		
+		if (BotMovement.getInstance().getCurrentYLocation() <= 10) {
+			BotMovement.getInstance().moveRight();
+		}		
 	}
 
 	/**
