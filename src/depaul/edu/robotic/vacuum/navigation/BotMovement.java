@@ -21,6 +21,8 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
  */
 public class BotMovement {
 	
+	public static Boolean move = true;
+	
 	/*
 	 * This method will move the robot one unit
 	 * to the left. (x - 1, y)
@@ -28,8 +30,8 @@ public class BotMovement {
 	 * direction if true
 	 * @return x-axis locations
 	 */
-	public static int moveLeft(Boolean canMove) {
-		if(canMove) {
+	public static int moveLeft() {
+		if(move) {
 			return BoundingBoxManager.getInstance()
 				.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 				.getRectangleObjectUsedToDrawBoundingBox().x--;
@@ -45,8 +47,8 @@ public class BotMovement {
 	 * direction if true
 	 * @return x-axis location
 	 */
-	public static int moveRight(Boolean canMove) {
-		if(canMove) {
+	public static int moveRight() {
+		if(move) {
 			return BoundingBoxManager.getInstance()
 					.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 					.getRectangleObjectUsedToDrawBoundingBox().x++;
@@ -62,8 +64,8 @@ public class BotMovement {
 	 * direction if true
 	 * @return y-axis
 	 */
-	public static int moveUp(Boolean canMove) {
-		if(canMove) {
+	public static int moveUp() {
+		if(move) {
 			return BoundingBoxManager.getInstance()
 					.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 					.getRectangleObjectUsedToDrawBoundingBox().y--;
@@ -79,8 +81,8 @@ public class BotMovement {
 	 * direction if true
 	 * @return y-axis
 	 */
-	public static int moveDown(Boolean canMove) {
-		if(canMove) {
+	public static int moveDown() {
+		if(move) {
 			return BoundingBoxManager.getInstance()
 					.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 					.getRectangleObjectUsedToDrawBoundingBox().y++;

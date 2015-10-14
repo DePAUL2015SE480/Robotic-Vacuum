@@ -36,8 +36,8 @@ public class ApplicationPanel extends JPanel implements Runnable {
 	public ApplicationPanel() {
 
 		// Constant variables
-		SCREEN_SIZE_X = 700;
-		SCREEN_SIZE_Y = 600;
+		SCREEN_SIZE_X = 400;
+		SCREEN_SIZE_Y = 400;
 		DELAY = 25;
 
 		beforeTime = 0;
@@ -120,14 +120,18 @@ public class ApplicationPanel extends JPanel implements Runnable {
 	Boolean move = true; // will remove
 
 	private void update() {
+		//create a moveL, moveR, etc and move in all directions
 		// this is only test data
 		if (move)
-			limit = BotMovement.moveRight(move);
+			limit = BotMovement.moveRight();
 
-		if (limit == 400) {
+		if (limit == (this.SCREEN_SIZE_X - BoundingBoxManager
+				.getInstance().getBoundingBox(BoundingBoxName.CLEANING_BOT)
+				.getRectangleObjectUsedToDrawBoundingBox().getWidth())) {
 			move = false;
-			BotMovement.moveRight(move);
-			BotMovement.moveUp(true);
+			
+			BotMovement.moveUp();
+			BotMovement.move = false;
 		}
 	}
 
@@ -139,8 +143,8 @@ public class ApplicationPanel extends JPanel implements Runnable {
 
 		// Load cleaning robot
 		BoundingBoxManager.getInstance().createAndAddBoundingBoxToCollection(
-				BoundingBoxName.CLEANING_BOT, new Rectangle(100, 100, 50, 50),
-				Color.RED, new HashMap<BoundingBoxEdge, Boolean>(), 0,0 );
+				BoundingBoxName.CLEANING_BOT, new Rectangle(100, 115, 20, 20),
+				Color.WHITE, new HashMap<BoundingBoxEdge, Boolean>(), 0,0 );
 
 		// Load rooms
 		FloorGrid.getInstance().establishGrid(8, 8);

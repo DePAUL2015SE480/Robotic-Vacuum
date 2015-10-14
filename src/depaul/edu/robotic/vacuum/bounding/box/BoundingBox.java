@@ -5,9 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import depaul.edu.robotic.vacuum.draw.content.Draw;
 

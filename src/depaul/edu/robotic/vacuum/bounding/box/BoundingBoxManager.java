@@ -42,7 +42,7 @@ public class BoundingBoxManager {
      * 
      * @param nameOfBoundingBox of the bounding box being created
      * @param rectangle being used to create the box 
-     * @param _color of bounding box
+     * @param rectangleColor of bounding box
      * @param edges of the bounding box and whether they're obstacles or not
      * @param x coordinate
      * @param y coordinate
