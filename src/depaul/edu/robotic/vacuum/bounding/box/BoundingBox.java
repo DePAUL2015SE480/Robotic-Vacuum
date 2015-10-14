@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import depaul.edu.robotic.vacuum.draw.content.Draw;
 
@@ -21,6 +25,7 @@ public final class BoundingBox implements Box, Draw {
 	private BoundingBoxName nameGivenToBoundingBox;
     private Rectangle rectangleObjectUsedToDrawBoundingBox;
     private Color color;
+    private HashMap<BoundingBoxEdge, Boolean> edges;
    
     private void buildBoxStructure(Graphics2D graphicsTool, Rectangle rectangleToCreateBox,
     		int thickness, Color rectangleColor) {
@@ -57,7 +62,10 @@ public final class BoundingBox implements Box, Draw {
     	this.nameGivenToBoundingBox = nameOfBoundingBox;
         this.rectangleObjectUsedToDrawBoundingBox = rectangleToCreateBoxt;
         this.color = rectangleColor;
+        this.edges = new HashMap<BoundingBoxEdge, Boolean>();
     }
+    
+    
     
     @Override
 	public void drawContent(Graphics2D g2d, ImageObserver observer) {
@@ -90,4 +98,21 @@ public final class BoundingBox implements Box, Draw {
     public Rectangle getRectangleObjectUsedToDrawBoundingBox() { 
     	return rectangleObjectUsedToDrawBoundingBox; 
     }
+	
+    /**
+     * Establishes whether the specified edge has an obstacle or not
+     */
+    @Override
+	public void setEdge(BoundingBoxEdge edge, Boolean hasObstacle) {
+		this.edges.put(edge, hasObstacle);
+	}
+
+    /**
+     * 
+     * @return the edges of the box object
+     */
+	@Override
+	public HashMap<BoundingBoxEdge, Boolean> getEdges() {
+		return this.edges;
+	}
 }
