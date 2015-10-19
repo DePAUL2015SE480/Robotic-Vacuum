@@ -44,7 +44,6 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		sleep = 0;
 
 		// set the background color of the panel
-		// figure out how to set pic as background
 		setBackground(Color.BLACK);
 
 		// allow panel to focus on keyAdapter
@@ -115,8 +114,6 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		g2d.dispose();
 	}
 
-	Boolean moveR = true; // will remove
-	
 	private void update() {
 			
 		//navigation data goes here	
