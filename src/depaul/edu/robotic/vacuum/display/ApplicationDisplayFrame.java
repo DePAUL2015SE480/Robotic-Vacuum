@@ -18,11 +18,17 @@ public class ApplicationDisplayFrame extends JFrame {
 	
 	public void runRoboticVacuumApp() {
 		
+		setTitle("Robotic Vacuum Demo");
+		
+		//initialize layout
+		setLayout(new java.awt.BorderLayout());
+		
 		//start thread process before adding panel to frame
 		new Thread(graphicalPanelToGoOnJavaFrame).start();
 		
 		//add a component to the frame
-		add(graphicalPanelToGoOnJavaFrame);
+		add(graphicalPanelToGoOnJavaFrame, java.awt.BorderLayout.WEST);
+		add(new DataPanel(), java.awt.BorderLayout.EAST);
 		
 		//set the frame to the size of the panel added
 		pack();

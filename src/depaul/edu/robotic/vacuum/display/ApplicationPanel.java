@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.HashMap;
-
 import javax.swing.JPanel;
 
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBox;
@@ -16,7 +15,7 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
 import depaul.edu.robotic.vacuum.draw.content.DrawManager;
 import depaul.edu.robotic.vacuum.floorPlan.FloorGrid;
-import depaul.edu.robotic.vacuum.navigation.BotMovement;
+import depaul.edu.robotic.vacuum.navigation.NavigationSystem;
 
 /**
  * 
@@ -119,29 +118,12 @@ public class ApplicationPanel extends JPanel implements Runnable {
 	Boolean moveR = true; // will remove
 	
 	private void update() {
-		// this is only test data	
-		if (moveR) {
-			BotMovement.getInstance().moveRight();
-		}
+			
+		//navigation data goes here	
+		NavigationSystem.navigateBot();
 		
-		if (BotMovement.getInstance().getCurrentXLocation() >= (this.SCREEN_SIZE_X - BoundingBoxManager
-				.getInstance().getBoundingBox(BoundingBoxName.CLEANING_BOT)
-				.getRectangleObjectUsedToDrawBoundingBox().getWidth()-10)) {
-			moveR = false;
-			BotMovement.getInstance().moveDown();
-		}
-		
-		if (BotMovement.getInstance().getCurrentYLocation() >= (this.SCREEN_SIZE_Y-124)) {
-			BotMovement.getInstance().moveLeft();
-		}		
-		
-		if (BotMovement.getInstance().getCurrentXLocation() <= 10) {
-			BotMovement.getInstance().moveUp();
-		}
-		
-		if (BotMovement.getInstance().getCurrentYLocation() <= 10) {
-			BotMovement.getInstance().moveRight();
-		}		
+		//will place all data added else where to screen
+		DataPanel.displayData();
 	}
 
 	/**
