@@ -17,8 +17,8 @@ public class DataPanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private static TextArea dataDisplay;
-	private final int WIDTH = 50;
-	private final int HEIGHT = 24;
+	private final int WIDTH = ApplicationPanel.SCREEN_SIZE_X >>3;
+	private final int HEIGHT = ApplicationPanel.SCREEN_SIZE_Y >>4;
 	
 	public DataPanel() {
 		initizeTextArea();

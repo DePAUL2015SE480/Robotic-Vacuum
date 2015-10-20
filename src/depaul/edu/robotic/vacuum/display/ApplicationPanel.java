@@ -16,7 +16,7 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
 import depaul.edu.robotic.vacuum.draw.content.DrawManager;
 import depaul.edu.robotic.vacuum.floorPlan.FloorGrid;
-import depaul.edu.robotic.vacuum.navigation.BotMovement;
+import depaul.edu.robotic.vacuum.navigation.NavigationSystem;
 
 /**
  * 
@@ -26,18 +26,14 @@ import depaul.edu.robotic.vacuum.navigation.BotMovement;
 public class ApplicationPanel extends JPanel implements Runnable {
 
 	private final int DELAY;
-	private final int SCREEN_SIZE_X;
-	private final int SCREEN_SIZE_Y;
 	private static final long serialVersionUID = 1L;
 	private long beforeTime;
 	private long timeDiff;
 	private long sleep;
+	public  static final int SCREEN_SIZE_X = 500;
+	public  static final int SCREEN_SIZE_Y = 500;
 
 	public ApplicationPanel() {
-
-		// Constant variables
-		SCREEN_SIZE_X = 800;
-		SCREEN_SIZE_Y = 800;
 		DELAY = 25;
 
 		beforeTime = 0;
@@ -119,30 +115,10 @@ public class ApplicationPanel extends JPanel implements Runnable {
 	Boolean moveR = true; // will remove
 
 	private void update() {
-		// this is only test data
-		if (moveR) {
-			BotMovement.getInstance().moveRight();
-		}
-
-		if (BotMovement.getInstance().getCurrentXLocation() >= (this.SCREEN_SIZE_X
-				- BoundingBoxManager.getInstance()
-						.getBoundingBox(BoundingBoxName.CLEANING_BOT)
-						.getRectangleObjectUsedToDrawBoundingBox().getWidth() - 10)) {
-			moveR = false;
-			BotMovement.getInstance().moveDown();
-		}
-
-		if (BotMovement.getInstance().getCurrentYLocation() >= (this.SCREEN_SIZE_Y - 124)) {
-			BotMovement.getInstance().moveLeft();
-		}
-
-		if (BotMovement.getInstance().getCurrentXLocation() <= 10) {
-			BotMovement.getInstance().moveUp();
-		}
-
-		if (BotMovement.getInstance().getCurrentYLocation() <= 10) {
-			BotMovement.getInstance().moveRight();
-		}
+		
+		NavigationSystem.navigateBot();
+		
+		DataPanel.displayData();
 	}
 
 	/**
