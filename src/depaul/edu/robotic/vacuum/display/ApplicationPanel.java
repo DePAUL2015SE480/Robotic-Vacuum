@@ -60,7 +60,6 @@ public class ApplicationPanel extends JPanel implements Runnable {
 	@Override
 	public void run() {
 
-		// get current system time(game time)
 		beforeTime = System.currentTimeMillis();
 
 		while (true) {
@@ -111,8 +110,6 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		// dispose of any resources
 		g2d.dispose();
 	}
-
-	Boolean moveR = true; // will remove
 
 	private void update() {
 		
