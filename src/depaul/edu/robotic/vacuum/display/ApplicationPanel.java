@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.HashMap;
+
 import javax.swing.JPanel;
 
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBox;
@@ -15,7 +16,7 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
 import depaul.edu.robotic.vacuum.draw.content.DrawManager;
 import depaul.edu.robotic.vacuum.floorPlan.FloorGrid;
-import depaul.edu.robotic.vacuum.navigation.NavigationSystem;
+import depaul.edu.robotic.vacuum.navigation.BotMovement;
 
 /**
  * 
@@ -35,8 +36,8 @@ public class ApplicationPanel extends JPanel implements Runnable {
 	public ApplicationPanel() {
 
 		// Constant variables
-		SCREEN_SIZE_X = 400;
-		SCREEN_SIZE_Y = 400;
+		SCREEN_SIZE_X = 800;
+		SCREEN_SIZE_Y = 800;
 		DELAY = 25;
 
 		beforeTime = 0;
@@ -44,6 +45,7 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		sleep = 0;
 
 		// set the background color of the panel
+		// figure out how to set pic as background
 		setBackground(Color.BLACK);
 
 		// allow panel to focus on keyAdapter
@@ -114,13 +116,33 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		g2d.dispose();
 	}
 
+	Boolean moveR = true; // will remove
+
 	private void update() {
-			
-		//navigation data goes here	
-		NavigationSystem.navigateBot();
-		
-		//will place all data added else where to screen
-		DataPanel.displayData();
+		// this is only test data
+		if (moveR) {
+			BotMovement.getInstance().moveRight();
+		}
+
+		if (BotMovement.getInstance().getCurrentXLocation() >= (this.SCREEN_SIZE_X
+				- BoundingBoxManager.getInstance()
+						.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+						.getRectangleObjectUsedToDrawBoundingBox().getWidth() - 10)) {
+			moveR = false;
+			BotMovement.getInstance().moveDown();
+		}
+
+		if (BotMovement.getInstance().getCurrentYLocation() >= (this.SCREEN_SIZE_Y - 124)) {
+			BotMovement.getInstance().moveLeft();
+		}
+
+		if (BotMovement.getInstance().getCurrentXLocation() <= 10) {
+			BotMovement.getInstance().moveUp();
+		}
+
+		if (BotMovement.getInstance().getCurrentYLocation() <= 10) {
+			BotMovement.getInstance().moveRight();
+		}
 	}
 
 	/**
@@ -132,10 +154,10 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		// Load cleaning robot
 		BoundingBoxManager.getInstance().createAndAddBoundingBoxToCollection(
 				BoundingBoxName.CLEANING_BOT, new Rectangle(100, 115, 20, 20),
-				Color.WHITE, new HashMap<BoundingBoxEdge, Boolean>(), 0,0 );
+				Color.WHITE, new HashMap<BoundingBoxEdge, Boolean>(), 0, 0);
 
 		// Load rooms
-		FloorGrid.getInstance().establishGrid(8, 8);
+		FloorGrid.getInstance().establishGrid();
 		// Load any obstacles
 
 		// add all bounding boxes to the draw manager to be drawn to
@@ -144,10 +166,10 @@ public class ApplicationPanel extends JPanel implements Runnable {
 				.getCollectionOfBoundingBoxes()) {
 			DrawManager.getInstance().addDrawComponent(boundingBox);
 		}
-		
+
 		// add all floor plan bounding boxes
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < FloorGrid.getInstance().getWidth(); i++) {
+			for (int j = 0; j < FloorGrid.getInstance().getHeight(); j++) {
 				DrawManager.getInstance()
 						.addDrawComponent(
 								BoundingBoxManager.getInstance()

@@ -24,7 +24,7 @@ public class BoundingBoxManager {
     	collectionOfBoundingBoxes = 
     			new ArrayList<BoundingBox>();
     	//TODO: Get rid of magic numbers here
-    	boxArray = new BoundingBox[8][8];
+    	boxArray = new BoundingBox[10][10];
         instance = null;
     } 
     

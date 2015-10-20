@@ -18,6 +18,7 @@ public enum BoundingBoxName {
 	HALLWAY,
 	BATHROOM,
 	GUEST_BEDROOM,
-	STAIRS
+	STAIRS, 
+	CLOSET
 	
 }
