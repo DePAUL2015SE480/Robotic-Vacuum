@@ -34,8 +34,18 @@ public class NavigationSystem {
 			BotMovement.getInstance().moveRight();
 		}	
 		
+		//Test for correct rooms
+		for(BoundingBoxName d : BoundingBoxName.values()) {
+			if(d.ordinal() == 0) continue;
+				if(BoundingBoxManager.getInstance()
+						.getBoundingBox(d).getRectangleObjectUsedToDrawBoundingBox()//check for room
+						.intersects(BoundingBoxManager.getInstance().getBoundingBox(BoundingBoxName.CLEANING_BOT) //room intersects with bot
+						.getRectangleObjectUsedToDrawBoundingBox())) {
+				DataPanel.print("I'm in the " + d + "!!");
+			}
+		}
 		//here only to check bot location
-		DataPanel.print("Bot Location: (" + BotMovement.getInstance().getCurrentXLocation() + ", " +
-		BotMovement.getInstance().getCurrentYLocation() + ")");
+		//DataPanel.print("Bot Location: (" + BotMovement.getInstance().getCurrentXLocation() + ", " +
+		//BotMovement.getInstance().getCurrentYLocation() + ")");
 	}
 }

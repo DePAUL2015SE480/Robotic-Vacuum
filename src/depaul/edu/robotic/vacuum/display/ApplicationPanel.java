@@ -124,7 +124,7 @@ public class ApplicationPanel extends JPanel implements Runnable {
 	 */
 	private void LoadContent() {
 
-		// Load cleaning robot
+		// Load cleaning robot size(20,20)
 		BoundingBoxManager.getInstance().createAndAddBoundingBoxToCollection(
 				BoundingBoxName.CLEANING_BOT, new Rectangle(100, 115, 20, 20),
 				Color.WHITE, new HashMap<BoundingBoxEdge, Boolean>(), 0, 0);
