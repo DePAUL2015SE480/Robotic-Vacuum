@@ -10,6 +10,7 @@ import java.util.HashMap;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxEdge;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
+import depaul.edu.robotic.vacuum.navigation.*;
 
 /**
  * Establishes the floor grid out of BoundingBoxes by using the

@@ -47,7 +47,7 @@ public class BotMovement {
 	 * This method will move the robot one unit
 	 * to the left. (x - 1, y)
 	 */
-	public void moveLeft() {
+	public void moveWest() {
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 			.getRectangleObjectUsedToDrawBoundingBox().x-=VELOCITY_UNITS;
@@ -58,7 +58,7 @@ public class BotMovement {
 	 *  This method will move the robot one unit
 	 * to the right. (x + 1, y)
 	 */
-	public void moveRight() {
+	public void moveEast() {
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 			.getRectangleObjectUsedToDrawBoundingBox().x+=VELOCITY_UNITS;
@@ -69,7 +69,7 @@ public class BotMovement {
 	 * * This method will move the robot one unit
 	 * to the right. (x, y - 1)
 	 */
-	public void moveUp() {
+	public void moveNorth() {
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 			.getRectangleObjectUsedToDrawBoundingBox().y-=VELOCITY_UNITS;
@@ -80,7 +80,7 @@ public class BotMovement {
 	 * * This method will move the robot one unit
 	 * to the right. (x, y + 1)
 	 */
-	public void moveDown() {
+	public void moveSouth() {
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 			.getRectangleObjectUsedToDrawBoundingBox().y+=VELOCITY_UNITS;
