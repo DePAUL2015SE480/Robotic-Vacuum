@@ -19,7 +19,7 @@ import depaul.edu.robotic.vacuum.navigation.Floor;
  * the BoundingBoxManager singleton class.
  * 
  * @author Briant Becote
- * added Floor object instance variable
+ * added Floor object instance variable and getFloor method
  *
  */
 public final class BoundingBox implements Box, Draw {
@@ -28,7 +28,8 @@ public final class BoundingBox implements Box, Draw {
     private Rectangle rectangleObjectUsedToDrawBoundingBox;
     private Color color;
     private HashMap<BoundingBoxEdge, Boolean> edges;
-    private Floor floor;
+    private Floor floor = new Floor();
+    
    
     private void buildBoxStructure(Graphics2D graphicsTool, Rectangle rectangleToCreateBox,
     		int thickness, Color rectangleColor) {
@@ -66,9 +67,15 @@ public final class BoundingBox implements Box, Draw {
         this.rectangleObjectUsedToDrawBoundingBox = rectangleToCreateBoxt;
         this.color = rectangleColor;
         this.edges = new HashMap<BoundingBoxEdge, Boolean>();
-        this.floor = new Floor();
+        //System.out.println("New Bounding Box, FloorType: " + this.floor.getFloorType());
     }
     
+    
+    /**
+     * 
+     * Provies a protected method for BoundingBoxManager to access the Floor of the BoundingBox
+     * @return Floor
+     */   
     Floor getFloor(){
     	return this.floor;
     }

@@ -46,8 +46,8 @@ import java.util.Stack;
  *  named 0 through <em>V</em> - 1.
  *  It supports the following two primary operations: add an edge to the graph,
  *  iterate over all of the vertices adjacent to a vertex. It also provides
- *  methods for returning the number of vertices <em>V</em> and the number
- *  of edges <em>E</em>. Parallel edges and self-loops are permitted.
+ *  methods for returning the number of vertices <em>V</em>. 
+ *  Parallel edges and self-loops are permitted.
  *  <p>
  *  This implementation uses an adjacency-lists representation, which 
  *  is a vertex-indexed array of {@link Bag} objects.
@@ -62,31 +62,37 @@ import java.util.Stack;
  *  @author Kevin Wayne
  *  
  *  @author Briant Becote
- *  Updated for use with the Clean Sweep program to utilize Vertex object inputs.
+ *  Updated for use with the Clean Sweep program to utilize Floor object inputs.
  */
 
 public class Graph {
     private static final String NEWLINE = System.getProperty("line.separator");
     private int floorCount;
     private Bag<Integer>[] adj;
+    private static Graph instance;
     
-    /**
-     * Initializes an empty graph with <tt>V</tt> vertices and 0 edges.
-     * param V the number of vertices
-     *
-     * @param  V number of vertices
-     * @throws IllegalArgumentException if <tt>V</tt> < 0
-     */
-    public Graph() {
+    //CONSTRUCTOR
+    private Graph() {
         this.floorCount = 1;
         Floor floor =  new Floor(1);
         this.adj = (Bag<Integer>[]) new Bag[floor.getVertex()];
             adj[floor.getVertex()] = new Bag<Integer>();
     }
+    
+    /**
+     * Singleton object creation
+     * @return Graph
+     */
+    public Graph getInstance(){
+    	if (instance == null) instance = new Graph() ;
+    	return instance;
+    }
+    
+    
 
     /**
-     * Returns the number of vertices in this graph.
-     * @return the number of floor cells
+     * Returns the number of vertices (floor cells) in this graph.
+     * @return int
      */
     public int totalCells() {
         return floorCount;

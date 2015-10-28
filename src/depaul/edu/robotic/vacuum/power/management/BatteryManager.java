@@ -16,6 +16,7 @@ import depaul.edu.robotic.vacuum.navigation.FloorType;
 public class BatteryManager {
 	private static BatteryManager instance;
 	private Battery battery;
+	
 	private BatteryManager(){
 	this.battery = new Battery();	
 	}
