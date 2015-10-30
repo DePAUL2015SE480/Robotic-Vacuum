@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import depaul.edu.robotic.vacuum.navigation.Floor;
+
 /**
  * 
  * @author Deonte Johnson
@@ -95,4 +97,10 @@ public class BoundingBoxManager {
 			box.getEdges().put(edge, edges.get(edge));
 		}
     }
+    
+    public Floor getFloor(){
+    	BoundingBox bot = getBoundingBox(BoundingBoxName.CLEANING_BOT);
+    	return bot.getFloor();
+    }
+    
 }

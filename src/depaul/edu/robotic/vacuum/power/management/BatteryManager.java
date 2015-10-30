@@ -1,5 +1,8 @@
 package depaul.edu.robotic.vacuum.power.management;
 
+import depaul.edu.robotic.vacuum.navigation.Floor;
+import depaul.edu.robotic.vacuum.navigation.FloorType;
+
 /**
  * Singleton class that provides API for CleanSweep battery operations and private Battery class
  * Battery life is 100 units max. Each operation requires units of charge depending on surfaces being traversed or cleaned
@@ -13,7 +16,7 @@ package depaul.edu.robotic.vacuum.power.management;
 public class BatteryManager {
 	private static BatteryManager instance;
 	private Battery battery;
-
+	
 	private BatteryManager(){
 	this.battery = new Battery();	
 	}
@@ -28,12 +31,20 @@ public class BatteryManager {
 		return instance;
 	}
 	
+//	private enum Floor {
+//		UNKNOWN(500), BARE_FLOOR(1), LOW_PILE(2), HIGH_PILE(3);
+//		private int value;
+//		private Floor (int value){
+//			this.value = value;
+//		}
+//	}
+	
     /**
      * 
      * @return a double representation of current battery life
      */
 	public double getBatteryLevel(){
-		return battery.batteryLife();
+		return battery.getBatteryLife();
 	}
 	
     /**
@@ -49,8 +60,8 @@ public class BatteryManager {
      * @param floorType current floor type
      * @exception if an unknown floor type is provided
      */
-	//TODO Takes input of Enum - currently a String type
-	public void batteryVacuum(String floorType) throws BatteryException{
+
+	public void batteryVacuum(FloorType floorType) throws BatteryException{
 		battery.batteryDrain(floorType); 
 	}
 	
@@ -60,8 +71,8 @@ public class BatteryManager {
      * @param floorType2 floor type CleanSweep is traveling to
      * @exception if an unknown floor type is provided
      */
-	//TODO Takes input of Enum - currently a String type
-	public void batteryTravel (String floorType1, String floorType2) throws BatteryException{
+	
+	public void batteryTravel (FloorType floorType1, FloorType floorType2) throws BatteryException{
 		battery.batteryDrain(floorType1, floorType2);
 	}
 	
@@ -77,30 +88,19 @@ public class BatteryManager {
 			this.batteryLife = 100;
 		}
 
-		//TODO Takes input of Enum - currently a String type
-		private void batteryDrain(Object floor) throws BatteryException {
-		if (floor == "BARE") batteryLife = batteryLife -1;
-		if (floor == "LOWPILE") batteryLife = batteryLife -2;
-		if (floor == "HIGHPILE") batteryLife = batteryLife - 3;
-		else throw new BatteryException ("Unknown floor type provided");
+		
+		private void batteryDrain(FloorType floorType) throws BatteryException {
+			if (floorType.getValue() > 3 || floorType.getValue() < 1) throw new BatteryException ("Unknown floor type provided");
+			batteryLife -= floorType.getValue();
 		}
 
-		//TODO Takes input of Enum - currently a String type
-		private void batteryDrain(Object floorType1, Object floorType2) throws BatteryException  {
-			if (floorType1 == floorType2) batteryDrain(floorType1);	
-			
-			if (floorType1 == "BARE" || floorType2 == "BARE") {
-				if (floorType1 == "LOWPILE" || floorType2 == "LOWPILE") batteryLife = batteryLife - 1.5;
-				if (floorType1 == "HIGHPILE" || floorType2 == "HIGHPILE")batteryLife = batteryLife - 2;
-				else throw new BatteryException ("Unknown floor type provided");
-			}
-			
-			if (floorType1 == "LOWPILE" || floorType2 == "LOWPILE" && floorType1 == "HIGHPILE" || floorType2 == "HIGHPILE") 
-				batteryLife = batteryLife - 2.5;
-			else throw new BatteryException ("Unknown floor type provided");
+		private void batteryDrain(FloorType floorType1, FloorType floorType2) throws BatteryException  {	
+			double floorValue = (floorType1.getValue() + floorType2.getValue())/2;
+			if (floorValue < 1 || floorValue > 3)throw new BatteryException ("Unknown floor type provided");
+			batteryLife -= floorValue;
 		}
 		
-		private double batteryLife() {
+		private double getBatteryLife() {
 			return batteryLife;
 		}
 

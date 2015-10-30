@@ -5,8 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.HashMap;
+import java.util.Random;
 
 import depaul.edu.robotic.vacuum.draw.content.Draw;
+import depaul.edu.robotic.vacuum.navigation.Floor;
 
 /**
  * 
@@ -15,6 +17,9 @@ import depaul.edu.robotic.vacuum.draw.content.Draw;
  * This class is for bounding box creation and access. The class
  * should not be accessed outside this package, should be accessed through
  * the BoundingBoxManager singleton class.
+ * 
+ * @author Briant Becote
+ * added Floor object instance variable and getFloor method
  *
  */
 public final class BoundingBox implements Box, Draw {
@@ -23,6 +28,8 @@ public final class BoundingBox implements Box, Draw {
     private Rectangle rectangleObjectUsedToDrawBoundingBox;
     private Color color;
     private HashMap<BoundingBoxEdge, Boolean> edges;
+    private Floor floor = new Floor();
+    
    
     private void buildBoxStructure(Graphics2D graphicsTool, Rectangle rectangleToCreateBox,
     		int thickness, Color rectangleColor) {
@@ -60,6 +67,17 @@ public final class BoundingBox implements Box, Draw {
         this.rectangleObjectUsedToDrawBoundingBox = rectangleToCreateBoxt;
         this.color = rectangleColor;
         this.edges = new HashMap<BoundingBoxEdge, Boolean>();
+        //System.out.println("New Bounding Box, FloorType: " + this.floor.getFloorType());
+    }
+    
+    
+    /**
+     * 
+     * Provies a protected method for BoundingBoxManager to access the Floor of the BoundingBox
+     * @return Floor
+     */   
+    Floor getFloor(){
+    	return this.floor;
     }
     
     

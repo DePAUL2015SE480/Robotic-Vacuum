@@ -1,6 +1,9 @@
 package depaul.edu.robotic.vacuum;
 
+import java.util.logging.Logger;
+
 import javax.swing.SwingUtilities;
+
 import depaul.edu.robotic.vacuum.display.ApplicationDisplayFrame;
 
 /**
@@ -12,6 +15,7 @@ import depaul.edu.robotic.vacuum.display.ApplicationDisplayFrame;
  *
  */
 public class RoboticVacuumMain {
+	private static final Logger logger = Logger.getLogger(RoboticVacuumMain.class.getName());
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable( ) {
