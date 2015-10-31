@@ -17,9 +17,9 @@ public class Floor {
 	private Integer vertex;
 	private boolean isClean;
 	private FloorType floorType;
-	//private HashMap<BoundingBox, Floor> floorplan; for correlating BoundingBox and Floor?
 	private int dirtValue;
 	private static int floorCount;
+	private static boolean isObstacle;
 	
 	//CONSTRUCTOR
 	public Floor(int vertex){
@@ -28,6 +28,7 @@ public class Floor {
 		this.floorType = FloorType.UNKNOWN;
 		this.dirtValue = 10; //Assumed max until determined otherwise
 		this.floorCount ++;
+		this.isObstacle = false;
 	}
 	
 	//Used to create the random Floor in BoundingBox class vertex set to -100 temporarily for troubleshooting
@@ -72,6 +73,14 @@ public class Floor {
 	}
 	
 	public int getFloorCount(){
-	return Floor.floorCount;
+		return Floor.floorCount;
 	}
+	
+    public boolean isObstacle() { 
+    	return isObstacle; 
+    }
+    
+    public void setObstacle(boolean obstacle) { 
+    	isObstacle = obstacle; 
+    }
 }
