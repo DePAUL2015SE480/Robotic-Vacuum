@@ -15,6 +15,7 @@ import depaul.edu.robotic.vacuum.navigation.*;
 /**
  * Establishes the floor grid out of BoundingBoxes by using the
  * BoundingBoxManager
+ * Connects the Floorgrid to the UI
  * 
  * @author rodri_000
  *
@@ -67,24 +68,24 @@ public class FloorGrid {
 	private void addBoundingBox(int x, int y) {
 		List<BoundingBoxEdge> edgeList = new ArrayList<BoundingBoxEdge>();
 		if (x == 0 && y == 0) { // Top left corner
-			edgeList.add(BoundingBoxEdge.LEFT);
-			edgeList.add(BoundingBoxEdge.TOP);
+			edgeList.add(BoundingBoxEdge.WEST);
+			edgeList.add(BoundingBoxEdge.NORTH);
 		} else if (x == this.width && y == 0) { // Top right corner
-			edgeList.add(BoundingBoxEdge.TOP);
-			edgeList.add(BoundingBoxEdge.RIGHT);
+			edgeList.add(BoundingBoxEdge.NORTH);
+			edgeList.add(BoundingBoxEdge.EAST);
 		} else if (x == 0 && y == this.height) { // Bottom left corner
-			edgeList.add(BoundingBoxEdge.LEFT);
-			edgeList.add(BoundingBoxEdge.BOTTOM);
+			edgeList.add(BoundingBoxEdge.WEST);
+			edgeList.add(BoundingBoxEdge.SOUTH);
 		} else if (x == this.width && y == this.height) { // Bottom right corner
-			edgeList.add(BoundingBoxEdge.BOTTOM);
-			edgeList.add(BoundingBoxEdge.RIGHT);
+			edgeList.add(BoundingBoxEdge.SOUTH);
+			edgeList.add(BoundingBoxEdge.EAST);
 		} else if (x == 0 || x == this.width) { // Top or bottom sides
-			BoundingBoxEdge edge = x == 0 ? BoundingBoxEdge.TOP
-					: BoundingBoxEdge.BOTTOM;
+			BoundingBoxEdge edge = x == 0 ? BoundingBoxEdge.NORTH
+					: BoundingBoxEdge.SOUTH;
 			edgeList.add(edge);
 		} else if (y == 0 || y == this.height) { // Left or right sides
-			BoundingBoxEdge edge = y == 0 ? BoundingBoxEdge.LEFT
-					: BoundingBoxEdge.RIGHT;
+			BoundingBoxEdge edge = y == 0 ? BoundingBoxEdge.WEST
+					: BoundingBoxEdge.EAST;
 			edgeList.add(edge);
 		} else {
 			this.createBox(Arrays.asList(), x, y);
@@ -118,7 +119,7 @@ public class FloorGrid {
 		}
 
 		BoundingBoxManager.getInstance().createAndAddBoundingBoxToCollection(
-				floorName, new Rectangle(50 * x, 50 * y, 50, 50),
+				floorName, new Rectangle(20 * x, 20 * y, 20, 20),
 				getColor(floorName), edges, x, y);
 
 	}
@@ -126,19 +127,26 @@ public class FloorGrid {
 	private Color getColor(BoundingBoxName floorName) {
 		switch (floorName) {
 		case BATHROOM:
-			return Color.BLUE;
+			return null;
+			//return Color.BLUE;
 		case CLOSET:
-			return Color.GREEN;
+			return null;
+			//return Color.GREEN;
 		case GUEST_BEDROOM:
-			return Color.CYAN;
+			return null;
+			//return Color.CYAN;
 		case HALLWAY:
-			return Color.BLACK;
+			return null;
+			//return Color.BLACK;
 		case MASTER_BEDROOM:
-			return Color.YELLOW;
+			return null;
+			//return Color.YELLOW;
 		case STAIRS:
-			return Color.ORANGE;
+			return null;
+			//return Color.ORANGE;
 		default:
-			return Color.WHITE;
+			return null;
+			//return Color.WHITE;
 		}
 	}
 

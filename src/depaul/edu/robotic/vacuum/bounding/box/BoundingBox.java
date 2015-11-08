@@ -1,12 +1,14 @@
 package depaul.edu.robotic.vacuum.bounding.box;
 
 import java.awt.Color;
+//import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.HashMap;
 import java.util.Random;
 
+//import depaul.edu.robotic.vacuum.display.DataPanel;
 import depaul.edu.robotic.vacuum.draw.content.Draw;
 import depaul.edu.robotic.vacuum.navigation.Floor;
 
@@ -23,12 +25,12 @@ import depaul.edu.robotic.vacuum.navigation.Floor;
  *
  */
 public final class BoundingBox implements Box, Draw {
-
 	private BoundingBoxName nameGivenToBoundingBox;
     private Rectangle rectangleObjectUsedToDrawBoundingBox;
     private Color color;
     private HashMap<BoundingBoxEdge, Boolean> edges;
-    private Floor floor = new Floor();
+    private Floor floor; 
+   
     
    
     private void buildBoxStructure(Graphics2D graphicsTool, Rectangle rectangleToCreateBox,
@@ -54,6 +56,7 @@ public final class BoundingBox implements Box, Draw {
         graphicsTool.drawRect((int)rectangleToCreateBox.getX(), 
         		(int)rectangleToCreateBox.getY() + (int)rectangleToCreateBox.getHeight() - thickness, 
         		(int)rectangleToCreateBox.getWidth(), thickness); 
+     
     } 
     
     /**
@@ -67,7 +70,7 @@ public final class BoundingBox implements Box, Draw {
         this.rectangleObjectUsedToDrawBoundingBox = rectangleToCreateBoxt;
         this.color = rectangleColor;
         this.edges = new HashMap<BoundingBoxEdge, Boolean>();
-        //System.out.println("New Bounding Box, FloorType: " + this.floor.getFloorType());
+        this.floor = new Floor(this);//TODO Impliment the Floor Constructor to receive inputs from a template
     }
     
     
@@ -94,6 +97,10 @@ public final class BoundingBox implements Box, Draw {
     @Override
     public void setColor(Color rectangleColor) { 
     	color = rectangleColor;
+    }
+    
+    public String getColor(){
+    	return this.color.toString();
     }
     
     /**

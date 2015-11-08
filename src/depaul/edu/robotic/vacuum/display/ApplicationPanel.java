@@ -59,12 +59,12 @@ public class ApplicationPanel extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
-
+		
 		beforeTime = System.currentTimeMillis();
-
+		
 		while (true) {
-
-			// update animations
+			
+			// update animations			
 			update();
 
 			// repaint animations to screen
@@ -72,24 +72,19 @@ public class ApplicationPanel extends JPanel implements Runnable {
 
 			// get time difference between current & before current time
 			timeDiff = System.currentTimeMillis() - beforeTime;
-
 			sleep = DELAY - timeDiff;
-
 			if (sleep < 0) {
 				sleep = 2;
 			}
-
+			
 			try {
-
 				Thread.sleep(sleep);
-
 			} catch (InterruptedException e) {
 				System.out.println("Interrupted: " + e.getMessage());
 			}
 
 			// reset beforeTime to current time in milliseconds
 			beforeTime = System.currentTimeMillis();
-
 		}
 	}
 
@@ -106,16 +101,17 @@ public class ApplicationPanel extends JPanel implements Runnable {
 
 		// ensure that all graphics are up to date
 		Toolkit.getDefaultToolkit().sync();
-
 		// dispose of any resources
 		g2d.dispose();
 	}
-
-	private void update() {
+	
+	
+	//Begins Vacuum movement and display
+	private void update(){
 		
 		NavigationSystem.navigateBot();
-		
 		DataPanel.displayData();
+		
 	}
 
 	/**
@@ -126,7 +122,7 @@ public class ApplicationPanel extends JPanel implements Runnable {
 
 		// Load cleaning robot size(20,20)
 		BoundingBoxManager.getInstance().createAndAddBoundingBoxToCollection(
-				BoundingBoxName.CLEANING_BOT, new Rectangle(100, 115, 20, 20),
+				BoundingBoxName.CLEANING_BOT, new Rectangle(80, 80, 20, 20),
 				Color.WHITE, new HashMap<BoundingBoxEdge, Boolean>(), 0, 0);
 
 		// Load rooms

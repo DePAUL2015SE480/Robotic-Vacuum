@@ -1,6 +1,16 @@
 package depaul.edu.robotic.vacuum.navigation;
 
+import java.awt.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.ListIterator;
+
+import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 
 /******************************************************************************
  *  Compilation:  javac Graph.java        
@@ -66,102 +76,103 @@ import java.util.Stack;
  */
 
 public class Graph {
-    private static final String NEWLINE = System.getProperty("line.separator");
-    private int floorCount;
-    private Bag<Integer>[] adj;
-    private static Graph instance;
-    
-    //CONSTRUCTOR
-    private Graph() {
-        this.floorCount = 1;
-        Floor floor =  new Floor(1);
-        this.adj = (Bag<Integer>[]) new Bag[floor.getVertex()];
-            adj[floor.getVertex()] = new Bag<Integer>();
-    }
-    
-    /**
-     * Singleton object creation
-     * @return Graph
-     */
-    public Graph getInstance(){
-    	if (instance == null) instance = new Graph() ;
-    	return instance;
-    }
-    
-    
-
-    /**
-     * Returns the number of vertices (floor cells) in this graph.
-     * @return int
-     */
-    public int totalCells() {
-        return floorCount;
-    }
-
-    // throw an IndexOutOfBoundsException unless 0 <= v < V
-    private void validateVertex(int v) {
-        if (v < 0 || v >= floorCount)
-            throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (floorCount-1));
-    }
-
-    /**
-     * Adds the undirected edge v-w to this graph.
-     *
-     * @param  v one vertex in the edge
-     * @param  w the other vertex in the edge
-     * @throws IndexOutOfBoundsException unless both 0 <= v < V and 0 <= w < V
-     */
-    public void addEdge(Floor v, Floor w) {
-        Integer vVertex = v.getVertex();
-        Integer wVertex = w.getVertex();
-    	validateVertex(vVertex);
-        validateVertex(wVertex);
-        adj[vVertex].add(wVertex);
-        adj[wVertex].add(vVertex);
-    }
+	private static final String NEWLINE = System.getProperty("line.separator");
+	private final static BoundingBoxManager boxManager = BoundingBoxManager.getInstance();
+	private ConcurrentHashMap <Floor, Bag<Edge>> adj = new ConcurrentHashMap<>();
+	private static Graph instance;
 
 
-    /**
-     * Returns the vertices adjacent to vertex <tt>v</tt>.
-     *
-     * @param  v the vertex
-     * @return the vertices adjacent to vertex <tt>v</tt>, as an iterable
-     * @throws IndexOutOfBoundsException unless 0 <= v < V
-     */
-    public Iterable<Integer> adj(int v) {
-        validateVertex(v);
-        return adj[v];
-    }
+	/**
+	 * Singleton object creation
+	 * @return Graph
+	 */
+	public static Graph getInstance(){
+		if (instance == null) instance = new Graph() ;
+		return instance;
+	}
 
-    /**
-     * Returns the degree of vertex <tt>v</tt>.
-     *
-     * @param  v the vertex
-     * @return the degree of vertex <tt>v</tt>
-     * @throws IndexOutOfBoundsException unless 0 <= v < V
-     */
-    public int degree(int v) {
-        validateVertex(v);
-        return adj[v].size();
-    }
+	//CONSTRUCTOR
+	private Graph() {
+		Floor floor =  boxManager.getFloor();
+		Floor v = floor;
+	}
 
 
-    /**
-     * Returns a string representation of this graph.
-     *
-     * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
-     *         followed by the <em>V</em> adjacency lists
-     */
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        //s.append(V + " vertices, " + E + " edges " + NEWLINE);
-        for (int v = 0; v < floorCount; v++) {
-            s.append(v + ": ");
-            for (int w : adj[v]) {
-                s.append(w + " ");
-            }
-            s.append(NEWLINE);
-        }
-        return s.toString();
-    }
+
+	/**
+	 * Returns the number of vertices (floor cells) in this graph.
+	 * @return int
+	 */
+	public int totalCells() {
+		return adj.size();
+	}
+
+	/**
+	 * Adds an edge adjacent to the vacuums location
+	 *
+	 * 
+	 */
+	public void addEdge(Floor botFloor, Floor adjFloor) {
+		if (adjFloor.isObstacle()) return;
+		if (!adj.containsKey(botFloor))
+			adj.put(botFloor, new Bag());
+		if (!adj.containsKey(adjFloor))
+			adj.put(adjFloor, new Bag());
+		Bag tempBag = adj.get(botFloor);
+		double tempWeight = (botFloor.getFloorType().getValue() + adjFloor.getFloorType().getValue())/2.0;
+		Edge tempEdge = new Edge (botFloor, adjFloor, tempWeight);
+		tempBag.add(tempEdge);
+		tempBag = adj.get(adjFloor);
+		tempEdge = new Edge (adjFloor, botFloor, tempWeight);
+		tempBag.add(tempEdge);
+	}
+
+
+	/**
+	 * Returns the vertices adjacent to vertex <tt>v</tt>.
+	 *
+	 * @param  v the vertex
+	 * @return the vertices adjacent to vertex <tt>v</tt>, as an iterable
+	 * @throws IndexOutOfBoundsException unless 0 <= v < V
+	 */
+	public Iterable<Edge> adj(Floor v) {
+		return adj.get(v);
+	}
+
+	/**
+	 * Returns the degree of vertex <tt>v</tt>.
+	 *
+	 * @param  v the vertex
+	 * @return the degree of vertex <tt>v</tt>
+	 * @throws IndexOutOfBoundsException unless 0 <= v < V
+	 */
+	public int degree(Floor v) {
+		Bag tempBag = adj.get(v);
+		return tempBag.size();
+	}
+
+
+	/**
+	 * Returns a string representation of this graph.
+	 *
+	 * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
+	 *         followed by the <em>V</em> adjacency lists
+	 */
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		s.append(adj.size() + " Floor cells"  + NEWLINE);
+		for (Floor w : adj.keySet()){ 
+			s.append("Current location: " + w.toString() + " " + NEWLINE);
+			Bag bag = adj.get(w);
+			Iterator it = bag.iterator();
+			int x = 1;
+			s.append(w.getVertex()+ " has " + bag.size() + " connected floor cells: " + NEWLINE);
+			while (it.hasNext()){
+				s.append(x + ": " + it.next() + NEWLINE);
+				x++;
+			}
+		}
+		s.append(NEWLINE);
+		return s.toString();
+	}
 }

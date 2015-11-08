@@ -31,14 +31,6 @@ public class BatteryManager {
 		return instance;
 	}
 	
-//	private enum Floor {
-//		UNKNOWN(500), BARE_FLOOR(1), LOW_PILE(2), HIGH_PILE(3);
-//		private int value;
-//		private Floor (int value){
-//			this.value = value;
-//		}
-//	}
-	
     /**
      * 
      * @return a double representation of current battery life
@@ -61,7 +53,7 @@ public class BatteryManager {
      * @exception if an unknown floor type is provided
      */
 
-	public void batteryVacuum(FloorType floorType) throws BatteryException{
+	public void batteryVacuum(FloorType floorType) {
 		battery.batteryDrain(floorType); 
 	}
 	
@@ -72,10 +64,12 @@ public class BatteryManager {
      * @exception if an unknown floor type is provided
      */
 	
-	public void batteryTravel (FloorType floorType1, FloorType floorType2) throws BatteryException{
+	public void batteryTravel (FloorType floorType1, FloorType floorType2) {
+		System.out.println("Battery was: " + battery.getBatteryLife());
+		System.out.println("Floor types: " + floorType1 + ", " + floorType2);
 		battery.batteryDrain(floorType1, floorType2);
+		System.out.println("Current Battery Life: " + battery.getBatteryLife());
 	}
-	
 	
     /**
      * Private class that maintains battery life and encapsulated battery operations
@@ -89,14 +83,14 @@ public class BatteryManager {
 		}
 
 		
-		private void batteryDrain(FloorType floorType) throws BatteryException {
-			if (floorType.getValue() > 3 || floorType.getValue() < 1) throw new BatteryException ("Unknown floor type provided");
+		private void batteryDrain(FloorType floorType) {
+			System.out.println("Battery was: " + battery.getBatteryLife());
 			batteryLife -= floorType.getValue();
+			System.out.println("After Vacuum Battery is: " + battery.getBatteryLife());
 		}
 
-		private void batteryDrain(FloorType floorType1, FloorType floorType2) throws BatteryException  {	
-			double floorValue = (floorType1.getValue() + floorType2.getValue())/2;
-			if (floorValue < 1 || floorValue > 3)throw new BatteryException ("Unknown floor type provided");
+		private void batteryDrain(FloorType floorType1, FloorType floorType2)  {
+			double floorValue = (floorType1.getValue() + floorType2.getValue())/2.0;
 			batteryLife -= floorValue;
 		}
 		

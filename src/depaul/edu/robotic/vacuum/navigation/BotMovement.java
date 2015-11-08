@@ -1,5 +1,6 @@
 package depaul.edu.robotic.vacuum.navigation;
 
+import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxEdge;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
 import depaul.edu.robotic.vacuum.display.DataPanel;
@@ -24,29 +25,29 @@ import depaul.edu.robotic.vacuum.power.management.BatteryManager;
  *
  *@author Briant Becote
  *added Battery functionality
+ *added Graph functionality
  */
 public class BotMovement {
 	private static BotMovement instance;
-	private final int VELOCITY_UNITS = 10; //change to one for 1 unit
-	private final int SLEEP_TIME_IN_SECONDS = 2;
+	private final int VELOCITY_UNITS = 20; //change to one for 1 unit
+	private final int SLEEP_TIME_IN_SECONDS = 5;
 	private final static BatteryManager battery = BatteryManager.getInstance();
 	private final static BoundingBoxManager boxManager = BoundingBoxManager.getInstance();
+	private static Graph map = Graph.getInstance();
 	
 	/**
-	 * ULTIMATELY WILL:
-	 *determines floor type vacuum is currently on and moving toward to calculate battery cost.  Subtracts that cost if
-	 *it can do so without running out before reaching the battery charger. 
-	 *
+	 * Updates the Graph representation of available cells to move to
 	 */
-	private void battery(){
-		try {
-			battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor().getFloorType());
-		} catch (BatteryException e) {
-			e.printStackTrace();
+	private void updateMap(){
+		Floor floor = boxManager.getFloor();
+		for(BoundingBoxEdge direction : BoundingBoxEdge.values()){
+			Floor floorAdj = boxManager.getFloor(direction);
+			if (!floorAdj.isObstacle())
+			map.addEdge(floor, floorAdj);
 		}
-		DataPanel.print("I'm on " + boxManager.getFloor().getFloorType() + " Floor Type.");
-		DataPanel.print("I have " + battery.getBatteryLevel() + " battery remaining!");
 	}
+	
+	
 	
 	private void sleep(int sleepTimeInSeconds) {
 		try {
@@ -69,9 +70,11 @@ public class BotMovement {
 	/**
 	 * This method will move the robot one unit
 	 * to the left. (x - 1, y)
+	 * @throws BatteryException 
 	 */
 	public void moveWest() {
-		battery();
+		updateMap();
+		battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.WEST).getFloorType());
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 			.getRectangleObjectUsedToDrawBoundingBox().x-=VELOCITY_UNITS;
@@ -81,36 +84,44 @@ public class BotMovement {
 	/**
 	 *  This method will move the robot one unit
 	 * to the right. (x + 1, y)
+	 * @throws BatteryException 
 	 */
 	public void moveEast() {
-		battery();
+		updateMap();
+		Floor currentFloor = boxManager.getFloor();
+		Floor nextFloor = boxManager.getFloor(BoundingBoxEdge.EAST);
+		System.out.println("Moving from " + currentFloor.getVertex().toString() + " to " + nextFloor.getVertex().toString());
+		battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.EAST).getFloorType());
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 			.getRectangleObjectUsedToDrawBoundingBox().x+=VELOCITY_UNITS;
 		sleep(SLEEP_TIME_IN_SECONDS);
+		//System.out.println(map.toString()); //KEEP for Troubleshooting, Map currently working correctly
 	}
 	
 	/**
 	 * * This method will move the robot one unit
 	 * to the right. (x, y - 1)
+	 * @throws BatteryException 
 	 */
-	public void moveNorth() {
-		battery();
+	public void moveNorth(){
+		battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.NORTH).getFloorType());
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
-			.getRectangleObjectUsedToDrawBoundingBox().y-=VELOCITY_UNITS;
+			.getRectangleObjectUsedToDrawBoundingBox().y+=VELOCITY_UNITS;
 		sleep(SLEEP_TIME_IN_SECONDS);
 	}
 	
 	/**
 	 * * This method will move the robot one unit
 	 * to the right. (x, y + 1)
+	 * @throws BatteryException 
 	 */
 	public void moveSouth() {
-		battery();
+		battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.SOUTH).getFloorType());
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
-			.getRectangleObjectUsedToDrawBoundingBox().y+=VELOCITY_UNITS;
+			.getRectangleObjectUsedToDrawBoundingBox().y-=VELOCITY_UNITS;
 		sleep(SLEEP_TIME_IN_SECONDS);
 	}
 	
@@ -133,4 +144,10 @@ public class BotMovement {
 				.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 				.getRectangleObjectUsedToDrawBoundingBox().y;
 	}
+	
+	public int getVelocity(){
+		return this.VELOCITY_UNITS;
+	}
+	
+	
 }

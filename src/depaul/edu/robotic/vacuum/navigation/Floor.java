@@ -14,26 +14,28 @@ import depaul.edu.robotic.vacuum.display.DataPanel;
  *
  */
 public class Floor {
-	private Integer vertex;
+	private final static BoundingBoxManager boxManager = BoundingBoxManager.getInstance();
+	private Vertex vertex;
 	private boolean isClean;
 	private FloorType floorType;
 	private int dirtValue;
 	private static int floorCount;
-	private static boolean isObstacle;
+	private static boolean isObstacle; //TODO needs implimenting
+	private static boolean hasCharger; //TODO needs implimenting
 	
 	//CONSTRUCTOR
-	public Floor(int vertex){
-		this.vertex = vertex;
-		this.isClean = false;
-		this.floorType = FloorType.UNKNOWN;
-		this.dirtValue = 10; //Assumed max until determined otherwise
-		this.floorCount ++;
-		this.isObstacle = false;
-	}
+//	public Floor(BoundingBox box){
+//		this.isClean = false;
+//		this.floorType = FloorType.UNKNOWN;
+//		this.dirtValue = 10; //Assumed max until determined otherwise
+//		this.floorCount ++;
+//		this.isObstacle = false;
+//		this.vertex = new Vertex(box);
+//	}
 	
 	//Used to create the random Floor in BoundingBox class vertex set to -100 temporarily for troubleshooting
-	//Does not use floorCount because this method is not part of the vacuum based software (belongs strictly to BoundingBox)
-	public Floor(){
+	//TODO We should eventually use the above constructor with Sensors update the floor information as the vacuum travels
+	public Floor(BoundingBox box){
     	Random random = new Random();
     	int floorValue = random.nextInt(3) + 1;
     	switch (floorValue){
@@ -42,15 +44,16 @@ public class Floor {
     		case 3: this.floorType = FloorType.HIGH_PILE; break;
     	}
     	this.dirtValue = random.nextInt(11);
-    	this.vertex = -100;
+    	this.vertex = new Vertex(box);
     	this.isClean = false;
+    	this.isObstacle = false;
 	}
 	
 	/**
 	 * numerical representation of a floor cell in graph form.  
-	 * @return Integer
+	 * @return Vertex
 	 */
-	public Integer getVertex() {
+	public Vertex getVertex() {
 		return vertex;
 	}
 	
@@ -80,7 +83,12 @@ public class Floor {
     	return isObstacle; 
     }
     
-    public void setObstacle(boolean obstacle) { 
-    	isObstacle = obstacle; 
+    public void setObstacle() { 
+    	isObstacle = true; 
+    }   
+    
+    public String toString(){
+    	return ("Floor Location: " + "(" + vertex.getX() + "," + vertex.getY() + ") \n" +
+    			"Floor Type: " + this.getFloorType() + "\n" + "Floor Dirtiness : " + this.getDirtValue());
     }
 }

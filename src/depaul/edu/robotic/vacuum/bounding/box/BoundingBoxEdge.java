@@ -7,9 +7,9 @@ package depaul.edu.robotic.vacuum.bounding.box;
  */
 public enum BoundingBoxEdge {
 	
-	LEFT,
-	TOP,
-	RIGHT,
-	BOTTOM
+	WEST,
+	NORTH,
+	EAST,
+	SOUTH
 
 }
