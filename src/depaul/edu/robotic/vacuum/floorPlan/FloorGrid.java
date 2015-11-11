@@ -52,48 +52,11 @@ public class FloorGrid {
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				this.addBoundingBox(i, j);
+				this.createBox(i, j);
 			}
 		}
 	}
-
-	/**
-	 * Adds a bounding box to the grid. This adds obstacles to the sides of the
-	 * boxes depending if its a corner piece or an edge piece. Can be updated
-	 * for different scenarios
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	private void addBoundingBox(int x, int y) {
-		List<BoundingBoxEdge> edgeList = new ArrayList<BoundingBoxEdge>();
-		if (x == 0 && y == 0) { // Top left corner
-			edgeList.add(BoundingBoxEdge.WEST);
-			edgeList.add(BoundingBoxEdge.NORTH);
-		} else if (x == this.width && y == 0) { // Top right corner
-			edgeList.add(BoundingBoxEdge.NORTH);
-			edgeList.add(BoundingBoxEdge.EAST);
-		} else if (x == 0 && y == this.height) { // Bottom left corner
-			edgeList.add(BoundingBoxEdge.WEST);
-			edgeList.add(BoundingBoxEdge.SOUTH);
-		} else if (x == this.width && y == this.height) { // Bottom right corner
-			edgeList.add(BoundingBoxEdge.SOUTH);
-			edgeList.add(BoundingBoxEdge.EAST);
-		} else if (x == 0 || x == this.width) { // Top or bottom sides
-			BoundingBoxEdge edge = x == 0 ? BoundingBoxEdge.NORTH
-					: BoundingBoxEdge.SOUTH;
-			edgeList.add(edge);
-		} else if (y == 0 || y == this.height) { // Left or right sides
-			BoundingBoxEdge edge = y == 0 ? BoundingBoxEdge.WEST
-					: BoundingBoxEdge.EAST;
-			edgeList.add(edge);
-		} else {
-			this.createBox(Arrays.asList(), x, y);
-		}
-
-		this.createBox(edgeList, x, y);
-	}
-
+	
 	/**
 	 * Creates a box based on the coordinates and edges passed in and adds it to
 	 * the BoundingBoxManager array
@@ -102,15 +65,8 @@ public class FloorGrid {
 	 * @param x
 	 * @param y
 	 */
-	private void createBox(List<BoundingBoxEdge> boundingBoxEdges, int x, int y) {
-		HashMap<BoundingBoxEdge, Boolean> edges = new HashMap<BoundingBoxEdge, Boolean>();
+	private void createBox(int x, int y) {
 		BoundingBoxName floorName = BoundingBoxName.NOT_INITIALIZED;
-		for (BoundingBoxEdge edge : BoundingBoxEdge.values()) {
-			if (boundingBoxEdges.contains(edge))
-				edges.put(edge, true);
-			else
-				edges.put(edge, false);
-		}
 
 		for (Room room : this.floorPlan.getRoomList()) {
 			if (x >= room.getOriginX() && x <= room.getWidth()
@@ -120,7 +76,7 @@ public class FloorGrid {
 
 		BoundingBoxManager.getInstance().createAndAddBoundingBoxToCollection(
 				floorName, new Rectangle(20 * x, 20 * y, 20, 20),
-				getColor(floorName), edges, x, y);
+				getColor(floorName), x, y);
 
 	}
 
