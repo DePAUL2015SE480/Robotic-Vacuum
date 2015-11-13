@@ -3,7 +3,6 @@ package depaul.edu.robotic.vacuum.bounding.box;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import depaul.edu.robotic.vacuum.navigation.BotMovement;
@@ -52,9 +51,8 @@ public class BoundingBoxManager {
 	 * 
 	 */
 	public void createAndAddBoundingBoxToCollection(BoundingBoxName nameOfBoundingBox, 
-			Rectangle rectangle, Color rectangleColor, HashMap<BoundingBoxEdge, Boolean> edges, int x, int y) {
+			Rectangle rectangle, Color rectangleColor, int x, int y) {
 		BoundingBox boundingBox = new BoundingBox(nameOfBoundingBox, rectangle, rectangleColor);
-		this.establishEdges(boundingBox, edges);
 		if (nameOfBoundingBox != BoundingBoxName.CLEANING_BOT)
 			this.boxArray[x][y] = boundingBox;
 		this.collectionOfBoundingBoxes.add(boundingBox);
@@ -84,25 +82,13 @@ public class BoundingBoxManager {
 		return null;
 	}
 
-	public List<BoundingBox> getCollectionOfBoundingBoxes() {
-		return this.collectionOfBoundingBoxes;
+	public ArrayList<BoundingBox> getCollectionOfBoundingBoxes() {
+		return (ArrayList<BoundingBox>) this.collectionOfBoundingBoxes;
 	}
 
 	public BoundingBox[][] getGridOfBoxes() {
 		return this.boxArray;
 	}
-
-	/**
-	 * Establishes all the edges of a bounding box
-	 * @param nameOfBoundingBoxToRetrieve
-	 * @param edges
-	 */
-	public void establishEdges(BoundingBox box, HashMap<BoundingBoxEdge, Boolean> edges) {
-		for (BoundingBoxEdge edge : edges.keySet()) {
-			box.getEdges().put(edge, edges.get(edge));
-		}
-	}
-	
 	
 	public Floor getFloor(){
 		BoundingBox bot = getBoundingBox(BoundingBoxName.CLEANING_BOT);

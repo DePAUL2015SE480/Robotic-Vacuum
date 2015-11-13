@@ -1,7 +1,9 @@
 package depaul.edu.robotic.vacuum.navigation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
 import depaul.edu.robotic.vacuum.bounding.box.*;
 import depaul.edu.robotic.vacuum.display.DataPanel;
 
@@ -20,8 +22,8 @@ public class Floor {
 	private FloorType floorType;
 	private int dirtValue;
 	private static int floorCount;
-	private static boolean isObstacle; //TODO needs implimenting
 	private static boolean hasCharger; //TODO needs implimenting
+	private ArrayList<BoundingBoxName> accessPoints;
 	
 	//CONSTRUCTOR
 //	public Floor(BoundingBox box){
@@ -46,7 +48,7 @@ public class Floor {
     	this.dirtValue = random.nextInt(11);
     	this.vertex = new Vertex(box);
     	this.isClean = false;
-    	this.isObstacle = false;
+    	this.accessPoints = new ArrayList<BoundingBoxName>();
 	}
 	
 	/**
@@ -78,14 +80,14 @@ public class Floor {
 	public int getFloorCount(){
 		return Floor.floorCount;
 	}
-	
-    public boolean isObstacle() { 
-    	return isObstacle; 
+    
+    public void setAccessPoints(ArrayList<BoundingBoxName> boxNames) {
+    	this.accessPoints = boxNames;
     }
     
-    public void setObstacle() { 
-    	isObstacle = true; 
-    }   
+    public ArrayList<BoundingBoxName> getAccessPoints() {
+    	return this.accessPoints;
+    }
     
     public String toString(){
     	return ("Floor Location: " + "(" + vertex.getX() + "," + vertex.getY() + ") \n" +

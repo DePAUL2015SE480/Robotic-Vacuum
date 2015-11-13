@@ -28,7 +28,6 @@ public final class BoundingBox implements Box, Draw {
 	private BoundingBoxName nameGivenToBoundingBox;
     private Rectangle rectangleObjectUsedToDrawBoundingBox;
     private Color color;
-    private HashMap<BoundingBoxEdge, Boolean> edges;
     private Floor floor; 
    
     
@@ -69,7 +68,6 @@ public final class BoundingBox implements Box, Draw {
     	this.nameGivenToBoundingBox = nameOfBoundingBox;
         this.rectangleObjectUsedToDrawBoundingBox = rectangleToCreateBoxt;
         this.color = rectangleColor;
-        this.edges = new HashMap<BoundingBoxEdge, Boolean>();
         this.floor = new Floor(this);//TODO Impliment the Floor Constructor to receive inputs from a template
     }
     
@@ -79,7 +77,7 @@ public final class BoundingBox implements Box, Draw {
      * Provies a protected method for BoundingBoxManager to access the Floor of the BoundingBox
      * @return Floor
      */   
-    Floor getFloor(){
+    public Floor getFloor(){
     	return this.floor;
     }
     
@@ -120,21 +118,4 @@ public final class BoundingBox implements Box, Draw {
     public Rectangle getRectangleObjectUsedToDrawBoundingBox() { 
     	return rectangleObjectUsedToDrawBoundingBox; 
     }
-	
-    /**
-     * Establishes whether the specified edge has an obstacle or not
-     */
-    @Override
-	public void setEdge(BoundingBoxEdge edge, Boolean hasObstacle) {
-		this.edges.put(edge, hasObstacle);
-	}
-
-    /**
-     * 
-     * @return the edges of the box object
-     */
-	@Override
-	public HashMap<BoundingBoxEdge, Boolean> getEdges() {
-		return this.edges;
-	}
 }

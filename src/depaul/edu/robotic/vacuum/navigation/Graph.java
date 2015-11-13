@@ -113,7 +113,6 @@ public class Graph {
 	 * 
 	 */
 	public void addEdge(Floor botFloor, Floor adjFloor) {
-		if (adjFloor.isObstacle()) return;
 		if (!adj.containsKey(botFloor))
 			adj.put(botFloor, new Bag());
 		if (!adj.containsKey(adjFloor))
