@@ -99,8 +99,9 @@ public class ApplicationPanel extends JPanel implements Runnable {
 
 		//fill the Robot square
 		g2d.setColor(Color.WHITE);
-		g2d.fill(BoundingBoxManager.getInstance().
-				getBoundingBox(BoundingBoxName.CLEANING_BOT).getRectangleObjectUsedToDrawBoundingBox());
+		g2d.fill(BoundingBoxManager.getInstance()
+				.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+				.getRectangleObjectUsedToDrawBoundingBox());
 		
 		// draw all components to the screen
 		DrawManager.getInstance().drawAllComponents(g2d, this);
