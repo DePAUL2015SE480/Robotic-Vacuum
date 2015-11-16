@@ -46,7 +46,7 @@ public class Distance {
 	}
 
 	public void returnToCharger(){
-		Graph map = Graph.getInstance();
+		Graph map = new Graph();
 		Floor currentFloor = boxManager.getFloor();
 		Floor goFloor = currentFloor;
 		while (!currentFloor.hasCharger()){

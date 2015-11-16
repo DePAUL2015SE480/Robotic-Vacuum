@@ -33,6 +33,7 @@ public class ApplicationPanel extends JPanel implements Runnable {
 	private long sleep;
 	public  static final int SCREEN_SIZE_X = 500;
 	public  static final int SCREEN_SIZE_Y = 500;
+	public static boolean isComplete = false; 
 
 	public ApplicationPanel() {
 		DELAY = 25;
@@ -63,7 +64,7 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		
 		beforeTime = System.currentTimeMillis();
 		
-		while (true) {
+		while (!isComplete) {
 			
 			// update animations			
 			update();
@@ -149,16 +150,7 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		for (BoundingBox boundingBox : BoundingBoxManager.getInstance()
 				.getCollectionOfBoundingBoxes()) {
 			DrawManager.getInstance().addDrawComponent(boundingBox);
-		}
-
-		// add all floor plan bounding boxes
-		for (int i = 0; i < FloorGrid.getInstance().getWidth(); i++) {
-			for (int j = 0; j < FloorGrid.getInstance().getHeight(); j++) {
-				DrawManager.getInstance()
-						.addDrawComponent(
-								BoundingBoxManager.getInstance()
-										.getGridOfBoxes()[i][j]);
-			}
+		
 		}
 	}
 }

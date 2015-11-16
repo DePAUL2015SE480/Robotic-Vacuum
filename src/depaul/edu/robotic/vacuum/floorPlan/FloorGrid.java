@@ -69,8 +69,8 @@ public class FloorGrid {
 		BoundingBoxName floorName = BoundingBoxName.NOT_INITIALIZED;
 
 		for (Room room : this.floorPlan.getRoomList()) {
-			if (x >= room.getOriginX() && x <= room.getWidth()
-					&& y >= room.getOriginY() && y <= room.getHeight())
+			if (x >= room.getOriginX() && x < room.getWidth()
+					&& y >= room.getOriginY() && y < room.getHeight())
 				floorName = room.getType();
 		}
 

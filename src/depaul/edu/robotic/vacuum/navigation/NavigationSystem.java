@@ -5,23 +5,35 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
 import depaul.edu.robotic.vacuum.display.ApplicationPanel;
 import depaul.edu.robotic.vacuum.display.DataPanel;
+import depaul.edu.robotic.vacuum.map.Graph;
 import depaul.edu.robotic.vacuum.power.management.BatteryException;
 import depaul.edu.robotic.vacuum.power.management.BatteryManager;
 
 public class NavigationSystem {
 	private final static BatteryManager battery = BatteryManager.getInstance();
 	private final static BoundingBoxManager boxManager = BoundingBoxManager.getInstance();
-	
+	private static Graph map = new Graph();
 	
 	private static Boolean moveR = true;
 	
+	
+	private static void updateMap(){
+		Floor floor = boxManager.getFloor();
+		for(BoundingBoxEdge direction : BoundingBoxEdge.values()){
+			Floor floorAdj = boxManager.getFloor(direction);
+			map.addEdge(floor, floorAdj);
+		}
+	}
+	
+	
 	public static void navigateBot() {
-		while(battery.getBatteryLevel() > 50){
+		while(battery.getBatteryLevel() > -50000){
 			Floor currentFloor = boxManager.getFloor();
 			
 			//TODO VACUUM SENSOR NEEDS TO REMOVE DIRT FROM FLOOR VALUE
 			int dirtValue = currentFloor.getDirtValue();
-			//System.out.println("Dirt Levels are :" + dirtValue + " Floor Type: " + currentFloor.getFloorType());
+			System.out.println("Dirt Levels are :" + dirtValue + " Floor Type: " + currentFloor.getFloorType());
+			
 			while (dirtValue > 0) {
 				battery.batteryVacuum(currentFloor.getFloorType());
 				dirtValue -= 1;
@@ -32,6 +44,10 @@ public class NavigationSystem {
 			Floor eastFloor = boxManager.getFloor(BoundingBoxEdge.EAST);
 			Floor southFloor = boxManager.getFloor(BoundingBoxEdge.SOUTH);
 			Floor westFloor = boxManager.getFloor(BoundingBoxEdge.WEST);
+			
+			//null or whatever bounds a box "edge"
+			
+			updateMap();
 			
 			if (eastFloor != null && eastFloor.getDirtValue() > 0){
 				BotMovement.getInstance().moveEast();

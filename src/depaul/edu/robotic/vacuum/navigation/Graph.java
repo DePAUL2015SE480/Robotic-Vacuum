@@ -79,20 +79,15 @@ public class Graph {
 	private static final String NEWLINE = System.getProperty("line.separator");
 	private final static BoundingBoxManager boxManager = BoundingBoxManager.getInstance();
 	private ConcurrentHashMap <Floor, Bag<Edge>> adj = new ConcurrentHashMap<>();
-	private static Graph instance;
 
 
 	/**
 	 * Singleton object creation
 	 * @return Graph
 	 */
-	public static Graph getInstance(){
-		if (instance == null) instance = new Graph() ;
-		return instance;
-	}
 
 	//CONSTRUCTOR
-	private Graph() {
+	public Graph() {
 		Floor floor =  boxManager.getFloor();
 		Floor v = floor;
 	}

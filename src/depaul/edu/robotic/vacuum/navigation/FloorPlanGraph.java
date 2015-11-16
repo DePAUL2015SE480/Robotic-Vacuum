@@ -14,7 +14,7 @@ public class FloorPlanGraph {
 	private static final int BOX_HEIGHT = 20;
 	private static FloorPlanGraph instance;
 	private final static BoundingBoxManager boxManager = BoundingBoxManager.getInstance();
-	private final static Graph graph = Graph.getInstance();
+	private final static Graph graph = new Graph();
 	
 	
 	public static FloorPlanGraph getInstance(){

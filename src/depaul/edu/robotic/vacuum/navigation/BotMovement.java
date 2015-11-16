@@ -34,18 +34,12 @@ public class BotMovement {
 	private final int SLEEP_TIME_IN_SECONDS = 5;
 	private final static BatteryManager battery = BatteryManager.getInstance();
 	private final static BoundingBoxManager boxManager = BoundingBoxManager.getInstance();
-	private static Graph map = Graph.getInstance();
+	private static Graph map = new Graph ();
 	
 	/**
 	 * Updates the Graph representation of available cells to move to
 	 */
-	private void updateMap(){
-		Floor floor = boxManager.getFloor();
-		for(BoundingBoxEdge direction : BoundingBoxEdge.values()){
-			Floor floorAdj = boxManager.getFloor(direction);
-			map.addEdge(floor, floorAdj);
-		}
-	}
+
 	
 	
 	
@@ -73,7 +67,7 @@ public class BotMovement {
 	 * @throws BatteryException 
 	 */
 	public void moveWest() {
-		updateMap();
+		//updateMap();
 		battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.WEST).getFloorType());
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
@@ -89,7 +83,7 @@ public class BotMovement {
 	public void moveEast() {
 		
 		//Call to a method in this class - updates the graph in every direction
-		updateMap();
+		//updateMap();
 		
 		//Grabs floor info on current floor cell and floor cell to the east
 		Floor currentFloor = boxManager.getFloor();

@@ -100,6 +100,12 @@ public class FloorPlanManager {
 		closet4.setOrigin(8, 0);
 		closet4.setDimension(2, 1);
 		floorPlan.addRoomToList(closet4);
+		
+		//Add charger
+		SimpleRoom charger = new SimpleRoom(BoundingBoxName.CHARGER);
+		charger.setOrigin(4, 4);
+		charger.setDimension(1, 1);
+		floorPlan.addRoomToList(charger);
 
 		return floorPlan;
 	}
