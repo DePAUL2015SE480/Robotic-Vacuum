@@ -13,7 +13,5 @@ public interface Box {
 	public void setColor(Color rectangleColor);
 	public BoundingBoxName getNameGivenToBoundingBox();
 	public Rectangle getRectangleObjectUsedToDrawBoundingBox();
-	public HashMap<BoundingBoxEdge, Boolean> getEdges();
-	public void setEdge(BoundingBoxEdge edge, Boolean hasObstacle);
 }
 

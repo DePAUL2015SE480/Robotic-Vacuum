@@ -42,7 +42,6 @@ public class BotMovement {
 		Floor floor = boxManager.getFloor();
 		for(BoundingBoxEdge direction : BoundingBoxEdge.values()){
 			Floor floorAdj = boxManager.getFloor(direction);
-			if (!floorAdj.isObstacle())
 			map.addEdge(floor, floorAdj);
 		}
 	}

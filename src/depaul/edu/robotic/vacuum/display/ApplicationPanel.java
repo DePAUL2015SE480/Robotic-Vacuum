@@ -16,6 +16,7 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
 import depaul.edu.robotic.vacuum.draw.content.DrawManager;
 import depaul.edu.robotic.vacuum.floorPlan.FloorGrid;
+import depaul.edu.robotic.vacuum.navigation.FloorPlanGraph;
 import depaul.edu.robotic.vacuum.navigation.NavigationSystem;
 
 /**
@@ -128,11 +129,13 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		// Load cleaning robot size(20,20)
 		BoundingBoxManager.getInstance().createAndAddBoundingBoxToCollection(
 				BoundingBoxName.CLEANING_BOT, new Rectangle(80, 80, 20, 20),
-				Color.WHITE, new HashMap<BoundingBoxEdge, Boolean>(), 0, 0);
+				Color.WHITE, 0, 0);
 
 		// Load rooms
 		FloorGrid.getInstance().establishGrid();
-		// Load any obstacles
+		
+		// Load Floor Plan Graph
+		FloorPlanGraph.getInstance();
 
 		// add all bounding boxes to the draw manager to be drawn to
 		// the screen
