@@ -1,5 +1,6 @@
 package depaul.edu.robotic.vacuum.power.management;
 
+import depaul.edu.robotic.vacuum.display.DataPanel;
 import depaul.edu.robotic.vacuum.navigation.Floor;
 import depaul.edu.robotic.vacuum.navigation.FloorType;
 
@@ -65,10 +66,10 @@ public class BatteryManager {
      */
 	
 	public void batteryTravel (FloorType floorType1, FloorType floorType2) {
-		System.out.println("Battery was: " + battery.getBatteryLife());
-		System.out.println("Floor types: " + floorType1 + ", " + floorType2);
+		DataPanel.print("Battery was: " + battery.getBatteryLife());
+		DataPanel.print("Floor types: " + floorType1 + ", " + floorType2);
 		battery.batteryDrain(floorType1, floorType2);
-		System.out.println("Current Battery Life: " + battery.getBatteryLife());
+		DataPanel.print("Current Battery Life: " + battery.getBatteryLife());
 	}
 	
     /**
@@ -84,9 +85,9 @@ public class BatteryManager {
 
 		
 		private void batteryDrain(FloorType floorType) {
-			System.out.println("Battery was: " + battery.getBatteryLife());
+			DataPanel.print("Battery was: " + battery.getBatteryLife());
 			batteryLife -= floorType.getValue();
-			System.out.println("After Vacuum Battery is: " + battery.getBatteryLife());
+			DataPanel.print("After Vacuum Battery is: " + battery.getBatteryLife());
 		}
 
 		private void batteryDrain(FloorType floorType1, FloorType floorType2)  {

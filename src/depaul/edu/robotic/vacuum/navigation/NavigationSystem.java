@@ -94,7 +94,7 @@ public class NavigationSystem {
 			}
 		}
 		//here only to check bot location
-		DataPanel.print("Bot Location: (" + BotMovement.getInstance().getCurrentXLocation() + ", " +
-		BotMovement.getInstance().getCurrentYLocation() + ")");
+		//DataPanel.print("Bot Location: (" + BotMovement.getInstance().getCurrentXLocation() + ", " +
+		//BotMovement.getInstance().getCurrentYLocation() + ")");
 	}
 }

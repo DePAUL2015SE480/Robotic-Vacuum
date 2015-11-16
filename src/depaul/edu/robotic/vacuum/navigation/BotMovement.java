@@ -90,7 +90,7 @@ public class BotMovement {
 		updateMap();
 		Floor currentFloor = boxManager.getFloor();
 		Floor nextFloor = boxManager.getFloor(BoundingBoxEdge.EAST);
-		System.out.println("Moving from " + currentFloor.getVertex().toString() + " to " + nextFloor.getVertex().toString());
+		DataPanel.print("Moving from " + currentFloor.getVertex().toString() + " to " + nextFloor.getVertex().toString());
 		battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.EAST).getFloorType());
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)

@@ -19,6 +19,7 @@ import java.util.Queue;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
+
 public class BreadthFirstPaths {
     private static final int INFINITY = Integer.MAX_VALUE;
     private boolean[] marked;  // marked[v] = is there an s-v path
@@ -205,6 +206,4 @@ public class BreadthFirstPaths {
 
         }
     }
-
-
-}
+} 
