@@ -94,14 +94,10 @@ public class BotMovement {
 		//Grabs floor info on current floor cell and floor cell to the east
 		Floor currentFloor = boxManager.getFloor();
 		Floor nextFloor = boxManager.getFloor(BoundingBoxEdge.EAST);
-<<<<<<< HEAD
 		System.out.println("Moving from " + currentFloor.getVertex().toString() + " to " + nextFloor.getVertex().toString());
 		
 		//updates the battery
-=======
-		DataPanel.print("Moving from " + currentFloor.getVertex().toString() + " to " + nextFloor.getVertex().toString());
->>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
-		battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.EAST).getFloorType());
+	battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.EAST).getFloorType());
 		
 		//moves the vacuum
 		BoundingBoxManager.getInstance()

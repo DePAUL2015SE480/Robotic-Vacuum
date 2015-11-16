@@ -23,17 +23,12 @@ public class Floor {
 	private FloorType floorType;
 	private int dirtValue;
 	private static int floorCount;
-<<<<<<< HEAD
 	private static boolean hasCharger; //TODO needs implimenting
 	private Distance chargerTracker;
 	private ArrayList<BoundingBoxName> accessPoints;
 	private boolean hasObstacle;
 	//'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
-=======
-	private static boolean hasCharger; //TODO needs implimenting
-	private ArrayList<BoundingBoxName> accessPoints;
->>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
-	
+
 	//CONSTRUCTOR
 //	public Floor(BoundingBox box){
 //		this.isClean = false;
@@ -56,7 +51,6 @@ public class Floor {
     	}
     	this.dirtValue = random.nextInt(11);
     	this.vertex = new Vertex(box);
-<<<<<<< HEAD
     	this.isClean = false;
     	//this.isObstacle = false;
     	this.hasCharger = false;
@@ -65,10 +59,7 @@ public class Floor {
 	
 	public boolean hasCharger(){
 		return hasCharger;
-=======
-    	this.isClean = false;
-    	this.accessPoints = new ArrayList<BoundingBoxName>();
->>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
+
 	}
 	
 	/**
@@ -100,18 +91,11 @@ public class Floor {
 	public int getFloorCount(){
 		return Floor.floorCount;
 	}
-<<<<<<< HEAD
-=======
     
     public void setAccessPoints(ArrayList<BoundingBoxName> boxNames) {
     	this.accessPoints = boxNames;
     }
->>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
-    
-<<<<<<< HEAD
-    public void setAccessPoints(ArrayList<BoundingBoxName> boxNames) {
-    	this.accessPoints = boxNames;
-    }   
+
     
     public void setCharger(){
     	this.hasCharger = true;
@@ -120,10 +104,6 @@ public class Floor {
     
     public ArrayList<BoundingBoxName> getAccessPoints() {
     	return this.accessPoints;
-=======
-    public ArrayList<BoundingBoxName> getAccessPoints() {
-    	return this.accessPoints;
->>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
     }
     
     public String toString(){

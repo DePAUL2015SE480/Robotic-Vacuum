@@ -68,15 +68,10 @@ public class BatteryManager {
      */
 	
 	public void batteryTravel (FloorType floorType1, FloorType floorType2) {
-<<<<<<< HEAD
 		double distanceCharger = tracker.getDistanceToCharger();
 		System.out.println("Distance to Charger: " + distanceCharger);
 		System.out.println("Battery was: " + battery.getBatteryLife());
 		System.out.println("Floor types: " + floorType1 + ", " + floorType2);
-=======
-		DataPanel.print("Battery was: " + battery.getBatteryLife());
-		DataPanel.print("Floor types: " + floorType1 + ", " + floorType2);
->>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
 		battery.batteryDrain(floorType1, floorType2);
 		DataPanel.print("Current Battery Life: " + battery.getBatteryLife());
 	}
