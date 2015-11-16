@@ -3,7 +3,7 @@ package depaul.edu.robotic.vacuum.power.management;
 import depaul.edu.robotic.vacuum.display.DataPanel;
 import depaul.edu.robotic.vacuum.navigation.Floor;
 import depaul.edu.robotic.vacuum.navigation.FloorType;
-
+import depaul.edu.robotic.vacuum.map.ChargerTracker;
 /**
  * Singleton class that provides API for CleanSweep battery operations and private Battery class
  * Battery life is 100 units max. Each operation requires units of charge depending on surfaces being traversed or cleaned
@@ -15,11 +15,13 @@ import depaul.edu.robotic.vacuum.navigation.FloorType;
  */
 
 public class BatteryManager {
+	private ChargerTracker tracker;
 	private static BatteryManager instance;
 	private Battery battery;
 	
 	private BatteryManager(){
-	this.battery = new Battery();	
+	this.battery = new Battery();
+	this.tracker = ChargerTracker.getInstance();
 	}
 	
     /**
@@ -66,8 +68,15 @@ public class BatteryManager {
      */
 	
 	public void batteryTravel (FloorType floorType1, FloorType floorType2) {
+<<<<<<< HEAD
+		double distanceCharger = tracker.getDistanceToCharger();
+		System.out.println("Distance to Charger: " + distanceCharger);
+		System.out.println("Battery was: " + battery.getBatteryLife());
+		System.out.println("Floor types: " + floorType1 + ", " + floorType2);
+=======
 		DataPanel.print("Battery was: " + battery.getBatteryLife());
 		DataPanel.print("Floor types: " + floorType1 + ", " + floorType2);
+>>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
 		battery.batteryDrain(floorType1, floorType2);
 		DataPanel.print("Current Battery Life: " + battery.getBatteryLife());
 	}

@@ -1,25 +1,26 @@
-package depaul.edu.robotic.vacuum.navigation;
+package depaul.edu.robotic.vacuum.map;
 
+import depaul.edu.robotic.vacuum.navigation.Floor;
 
 public class Edge implements Comparable<Edge> { 
-    private final Floor v;
-    private final Floor w;
+    private final Floor thisFloor;
+    private final Floor adjFloor;
     private final double weight;
 
     /**
      * Initializes an edge between vertices <tt>v</tt> and <tt>w</tt> of
      * the given <tt>weight</tt>.
      *
-     * @param  v one vertex
-     * @param  w the other vertex
+     * @param  v Current Floor
+     * @param  w Adjacent Floor vertex
      * @param  weight the weight of this edge
      * @throws IndexOutOfBoundsException if either <tt>v</tt> or <tt>w</tt> 
      *         is a negative integer
      * @throws IllegalArgumentException if <tt>weight</tt> is <tt>NaN</tt>
      */
     public Edge(Floor v, Floor w, double weight) {
-        this.v = v;
-        this.w = w;
+        this.thisFloor = v;
+        this.adjFloor = w;
         this.weight = weight;
     }
 
@@ -28,7 +29,7 @@ public class Edge implements Comparable<Edge> {
      *
      * @return the weight of this edge
      */
-    public double weight() {
+    public double getWeight() {
         return weight;
     }
 
@@ -37,23 +38,10 @@ public class Edge implements Comparable<Edge> {
      *
      * @return either endpoint of this edge
      */
-    public Floor either() {
-        return v;
+    public Floor adjFloor() {
+        return adjFloor;
     }
 
-    /**
-     * Returns the endpoint of this edge that is different from the given vertex.
-     *
-     * @param  vertex one endpoint of this edge
-     * @return the other endpoint of this edge
-     * @throws IllegalArgumentException if the vertex is not one of the
-     *         endpoints of this edge
-     */
-    public Floor other(Floor vertex) {
-        if      (vertex == v) return w;
-        else if (vertex == w) return v;
-        else throw new IllegalArgumentException("Illegal endpoint");
-    }
 
     /**
      * Compares two edges by weight.
@@ -67,8 +55,8 @@ public class Edge implements Comparable<Edge> {
      */
     @Override
     public int compareTo(Edge that) {
-        if      (this.weight() < that.weight()) return -1;
-        else if (this.weight() > that.weight()) return +1;
+        if      (this.getWeight() < that.getWeight()) return -1;
+        else if (this.getWeight() > that.getWeight()) return +1;
         else                                    return  0;
     }
 
@@ -78,7 +66,7 @@ public class Edge implements Comparable<Edge> {
      * @return a string representation of this edge
      */
     public String toString() {
-        return ("Edges: " + v.getVertex().toString() + " " + v.getFloorType()  + " connected to " + w.getVertex().toString() + " " + w.getFloorType() +
-        		"\n" + " Weight: " + this.weight()) ;
+        return ("Edges: " + thisFloor.getVertex().toString() + " " + thisFloor.getFloorType()  + " connected to " + adjFloor.getVertex().toString() + " " + adjFloor.getFloorType() +
+        		"\n" + " Weight: " + this.getWeight()) ;
     }
 }

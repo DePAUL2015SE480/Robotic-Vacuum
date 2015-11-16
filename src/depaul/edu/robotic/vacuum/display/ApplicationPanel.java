@@ -96,6 +96,12 @@ public class ApplicationPanel extends JPanel implements Runnable {
 		// draw content to the screen
 		// create a 2d graphic
 		Graphics2D g2d = (Graphics2D) g;
+		
+		//fill the Robot square
+		g2d.setColor(Color.WHITE);
+		g2d.fill(BoundingBoxManager.getInstance()
+		.getBoundingBox(BoundingBoxName.CLEANING_BOT)
+		.getRectangleObjectUsedToDrawBoundingBox());
 
 		//fill the Robot square
 		g2d.setColor(Color.WHITE);

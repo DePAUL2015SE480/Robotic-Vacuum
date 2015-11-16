@@ -4,6 +4,7 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxEdge;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxName;
 import depaul.edu.robotic.vacuum.display.DataPanel;
+import depaul.edu.robotic.vacuum.map.Graph;
 import depaul.edu.robotic.vacuum.power.management.BatteryException;
 import depaul.edu.robotic.vacuum.power.management.BatteryManager;
 
@@ -86,14 +87,27 @@ public class BotMovement {
 	 * @throws BatteryException 
 	 */
 	public void moveEast() {
+		
+		//Call to a method in this class - updates the graph in every direction
 		updateMap();
+		
+		//Grabs floor info on current floor cell and floor cell to the east
 		Floor currentFloor = boxManager.getFloor();
 		Floor nextFloor = boxManager.getFloor(BoundingBoxEdge.EAST);
+<<<<<<< HEAD
+		System.out.println("Moving from " + currentFloor.getVertex().toString() + " to " + nextFloor.getVertex().toString());
+		
+		//updates the battery
+=======
 		DataPanel.print("Moving from " + currentFloor.getVertex().toString() + " to " + nextFloor.getVertex().toString());
+>>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
 		battery.batteryTravel(boxManager.getFloor().getFloorType(), boxManager.getFloor(BoundingBoxEdge.EAST).getFloorType());
+		
+		//moves the vacuum
 		BoundingBoxManager.getInstance()
 			.getBoundingBox(BoundingBoxName.CLEANING_BOT)
 			.getRectangleObjectUsedToDrawBoundingBox().x+=VELOCITY_UNITS;
+		
 		sleep(SLEEP_TIME_IN_SECONDS);
 		//System.out.println(map.toString()); //KEEP for Troubleshooting, Map currently working correctly
 	}

@@ -105,7 +105,7 @@ public class BoundingBoxManager {
 			}
 		}
 		System.out.println("VACUUM IS OFF THE MAP");
-		return bot.getFloor();
+		return null;
 	}
 
 	public Floor getFloor(BoundingBoxEdge direction){
@@ -165,7 +165,7 @@ public class BoundingBoxManager {
 			}}
 
 		System.out.println("VACUUM IS OFF THE MAP");
-		return bot.getFloor();	
+		return null;	
 	}
 
 

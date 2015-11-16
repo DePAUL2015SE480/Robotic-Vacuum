@@ -98,7 +98,7 @@ public class FloorPlanManager {
 		// add final closet
 		SimpleRoom closet4 = new SimpleRoom(BoundingBoxName.CLOSET);
 		closet4.setOrigin(8, 0);
-		closet4.setDimension(2, 3);
+		closet4.setDimension(2, 1);
 		floorPlan.addRoomToList(closet4);
 
 		return floorPlan;

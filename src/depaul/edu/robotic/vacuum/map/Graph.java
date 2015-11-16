@@ -1,6 +1,7 @@
-package depaul.edu.robotic.vacuum.navigation;
+package depaul.edu.robotic.vacuum.map;
 
 import java.awt.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -9,8 +10,9 @@ import java.util.ListIterator;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.ListIterator;
-import depaul.edu.robotic.vacuum.map.*;
+
 import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
+import depaul.edu.robotic.vacuum.navigation.Floor;
 
 /******************************************************************************
  *  Compilation:  javac Graph.java        
@@ -78,7 +80,7 @@ import depaul.edu.robotic.vacuum.bounding.box.BoundingBoxManager;
 public class Graph {
 	private static final String NEWLINE = System.getProperty("line.separator");
 	private final static BoundingBoxManager boxManager = BoundingBoxManager.getInstance();
-	private ConcurrentHashMap <Floor, Bag<Edge>> adj = new ConcurrentHashMap<>();
+	private ConcurrentHashMap <Floor, ArrayList<Edge>> adj = new ConcurrentHashMap<>();
 	private static Graph instance;
 
 
@@ -95,6 +97,10 @@ public class Graph {
 	private Graph() {
 		Floor floor =  boxManager.getFloor();
 		Floor v = floor;
+	}
+	
+	public ConcurrentHashMap<Floor, ArrayList<Edge>> getMap(){
+		return adj;
 	}
 
 
@@ -113,17 +119,18 @@ public class Graph {
 	 * 
 	 */
 	public void addEdge(Floor botFloor, Floor adjFloor) {
+		//if (adjFloor.isObstacle()) return;
 		if (!adj.containsKey(botFloor))
-			adj.put(botFloor, new Bag());
+			adj.put(botFloor, new ArrayList<Edge>());
 		if (!adj.containsKey(adjFloor))
-			adj.put(adjFloor, new Bag());
-		Bag tempBag = adj.get(botFloor);
+			adj.put(adjFloor, new ArrayList<Edge>());
+		ArrayList<Edge> tempList = adj.get(botFloor);
 		double tempWeight = (botFloor.getFloorType().getValue() + adjFloor.getFloorType().getValue())/2.0;
 		Edge tempEdge = new Edge (botFloor, adjFloor, tempWeight);
-		tempBag.add(tempEdge);
-		tempBag = adj.get(adjFloor);
+		tempList.add(tempEdge);
+		tempList = adj.get(adjFloor);
 		tempEdge = new Edge (adjFloor, botFloor, tempWeight);
-		tempBag.add(tempEdge);
+		tempList.add(tempEdge);
 	}
 
 
@@ -146,8 +153,8 @@ public class Graph {
 	 * @throws IndexOutOfBoundsException unless 0 <= v < V
 	 */
 	public int degree(Floor v) {
-		Bag tempBag = adj.get(v);
-		return tempBag.size();
+		ArrayList<Edge> tempList = adj.get(v);
+		return tempList.size();
 	}
 
 
@@ -162,10 +169,10 @@ public class Graph {
 		s.append(adj.size() + " Floor cells"  + NEWLINE);
 		for (Floor w : adj.keySet()){ 
 			s.append("Current location: " + w.toString() + " " + NEWLINE);
-			Bag bag = adj.get(w);
-			Iterator it = bag.iterator();
+			ArrayList<Edge> list = adj.get(w);
+			Iterator it = list.iterator();
 			int x = 1;
-			s.append(w.getVertex()+ " has " + bag.size() + " connected floor cells: " + NEWLINE);
+			s.append(w.getVertex()+ " has " + list.size() + " connected floor cells: " + NEWLINE);
 			while (it.hasNext()){
 				s.append(x + ": " + it.next() + NEWLINE);
 				x++;

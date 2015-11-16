@@ -6,6 +6,7 @@ import java.util.Random;
 
 import depaul.edu.robotic.vacuum.bounding.box.*;
 import depaul.edu.robotic.vacuum.display.DataPanel;
+import depaul.edu.robotic.vacuum.map.Distance;
 
 /**
  * Designate if a floor "cell" is clean, and the floor type.  
@@ -22,8 +23,16 @@ public class Floor {
 	private FloorType floorType;
 	private int dirtValue;
 	private static int floorCount;
+<<<<<<< HEAD
+	private static boolean hasCharger; //TODO needs implimenting
+	private Distance chargerTracker;
+	private ArrayList<BoundingBoxName> accessPoints;
+	private boolean hasObstacle;
+	//'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
+=======
 	private static boolean hasCharger; //TODO needs implimenting
 	private ArrayList<BoundingBoxName> accessPoints;
+>>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
 	
 	//CONSTRUCTOR
 //	public Floor(BoundingBox box){
@@ -47,8 +56,19 @@ public class Floor {
     	}
     	this.dirtValue = random.nextInt(11);
     	this.vertex = new Vertex(box);
+<<<<<<< HEAD
+    	this.isClean = false;
+    	//this.isObstacle = false;
+    	this.hasCharger = false;
+    	this.accessPoints = new ArrayList<BoundingBoxName>();
+	}
+	
+	public boolean hasCharger(){
+		return hasCharger;
+=======
     	this.isClean = false;
     	this.accessPoints = new ArrayList<BoundingBoxName>();
+>>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
 	}
 	
 	/**
@@ -80,17 +100,40 @@ public class Floor {
 	public int getFloorCount(){
 		return Floor.floorCount;
 	}
+<<<<<<< HEAD
+=======
     
     public void setAccessPoints(ArrayList<BoundingBoxName> boxNames) {
     	this.accessPoints = boxNames;
     }
+>>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
+    
+<<<<<<< HEAD
+    public void setAccessPoints(ArrayList<BoundingBoxName> boxNames) {
+    	this.accessPoints = boxNames;
+    }   
+    
+    public void setCharger(){
+    	this.hasCharger = true;
+    	//this.chargerTracker = new Distance();
+    }
     
     public ArrayList<BoundingBoxName> getAccessPoints() {
     	return this.accessPoints;
+=======
+    public ArrayList<BoundingBoxName> getAccessPoints() {
+    	return this.accessPoints;
+>>>>>>> branch 'development' of https://github.com/DePAUL2015SE480/Robotic-Vacuum.git
     }
     
     public String toString(){
     	return ("Floor Location: " + "(" + vertex.getX() + "," + vertex.getY() + ") \n" +
-    			"Floor Type: " + this.getFloorType() + "\n" + "Floor Dirtiness : " + this.getDirtValue());
+    			"Floor Type: " + this.getFloorType() + "\n" + "Floor Dirtiness : " + this.getDirtValue() + " \n" +
+    			"Floor Charger: " + this.hasCharger());
     }
+
+	public boolean isObstacle() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

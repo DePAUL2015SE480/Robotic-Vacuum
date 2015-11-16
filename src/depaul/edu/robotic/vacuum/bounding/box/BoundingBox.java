@@ -69,6 +69,12 @@ public final class BoundingBox implements Box, Draw {
         this.rectangleObjectUsedToDrawBoundingBox = rectangleToCreateBoxt;
         this.color = rectangleColor;
         this.floor = new Floor(this);//TODO Impliment the Floor Constructor to receive inputs from a template
+        //TODO Temp Charger location
+        if (this.floor.getVertex().getX() == 80 && this.floor.getVertex().getY() == 80){
+        	System.out.println("CHARGER SET!!!");
+        	this.floor.setCharger();
+        	System.out.println(this.floor.toString());
+        }
     }
     
     

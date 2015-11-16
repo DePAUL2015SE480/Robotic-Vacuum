@@ -5,6 +5,6 @@ import depaul.edu.robotic.vacuum.navigation.Floor;
 public class SurfaceDetectionSensor {
 	
 	public boolean isObstacle(Floor floor){
-		return (floor.isObstacle());
+		return false;
 	}
 }

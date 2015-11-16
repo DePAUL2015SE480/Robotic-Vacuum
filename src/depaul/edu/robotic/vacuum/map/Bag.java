@@ -1,4 +1,4 @@
-package depaul.edu.robotic.vacuum.navigation;
+package depaul.edu.robotic.vacuum.map;
 
 /******************************************************************************
  *  Compilation:  javac Bag.java
